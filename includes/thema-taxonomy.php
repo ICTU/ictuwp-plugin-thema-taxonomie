@@ -1,4 +1,10 @@
 <?php
+
+// This file is a direct copy from the NPR repo. See:
+// https://github.com/ICTU/ictuwp-gebruikercentraal
+// specifically this file:
+// [root]/wp-content/themes/ictuwp-theme-gc2020/includes/taxonomies/thema-taxonomy.php
+
 /**
  * Custom Taxonomy: Thema
  * - Non hierarchical (like 'tags')
@@ -7,7 +13,7 @@
  *
  * @see https://developer.wordpress.org/reference/functions/register_taxonomy/
  * @see https://developer.wordpress.org/reference/functions/get_taxonomy_labels/
- * 
+ *
  * [1] Init Thema taxonomy labels
  * [2] Init Thema taxonomy arguments
  * [3] Register Thema taxonomy
@@ -72,30 +78,52 @@ $thema_tax_args = [
 	"show_in_quick_edit" => true,
 ];
 
+$posttypes = array( 'post', 'page', 'event', 'video_page' );
+
+
+//	if ( post_type_exists( 'rijksvideo' ) ) {
+//		$posttypes[] = 'rijksvideo';
+//	}
+if ( post_type_exists( 'podcast' ) ) {
+	$posttypes[] = 'podcast';
+}
+if ( post_type_exists( 'video_page' ) ) {
+	$posttypes[] = 'video_page';
+}
+if ( post_type_exists( 'session' ) ) {
+	$posttypes[] = 'session';
+}
+if ( post_type_exists( 'keynote' ) ) {
+	$posttypes[] = 'keynote';
+}
+if ( post_type_exists( 'speaker' ) ) {
+	$posttypes[] = 'speaker';
+}
+
 // [3] Register our Custom Taxonomy
-register_taxonomy( TAX_THEMA, [ 'post', 'page', 'event', 'podcast', 'rijksvideo', 'video_page' ], $thema_tax_args );
+register_taxonomy( TAX_THEMA, $posttypes, $thema_tax_args );
 
 // [4] Get complete Thema term objects
 
 /**
  * gc_get_thema_terms()
- * 
+ *
  * 'Thema' is a custom taxonomy (tag)
  * It has 2 extra ACF fields for an
  * image and a landingspage
- * 
+ *
  * This function fills an array of all
  * terms, with their extra fields...
- * 
+ *
  * If one $thema_name is passed it returns only that
  * If $term_args is passed it uses that for the query
- * 
+ *
  * @see https://developer.wordpress.org/reference/functions/get_terms/
  * @see https://www.advancedcustomfields.com/resources/adding-fields-taxonomy-term/
  * @see https://developer.wordpress.org/reference/classes/wp_term_query/__construct/
- * 
+ *
  * @param String $thema_name Specific term name/slug to query
- * @param Array  $thema_args Specific term query Arguments to use
+ * @param Array $thema_args Specific term query Arguments to use
  */
 function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
 	$thema_taxonomy = TAX_THEMA;
@@ -107,21 +135,21 @@ function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
 	];
 
 	// Query specific term name 
-	if ( !empty( $thema_name ) ) {
+	if ( ! empty( $thema_name ) ) {
 		// If we find a Space, or an Uppercase letter, we assume `name`
 		// otherwise we use `slug`
-		$RE_disqualify_slug  = "/[\sA-Z]/";
-		$query_prop_type     = preg_match( $RE_disqualify_slug, $thema_name ) ? 'name' : 'slug';
-		$thema_query[$query_prop_type] = $thema_name;
+		$RE_disqualify_slug              = "/[\sA-Z]/";
+		$query_prop_type                 = preg_match( $RE_disqualify_slug, $thema_name ) ? 'name' : 'slug';
+		$thema_query[ $query_prop_type ] = $thema_name;
 	}
 
 	$found_thema_terms = get_terms( $thema_query );
 
-	if ( is_array( $found_thema_terms ) && !empty( $found_thema_terms ) ) {
+	if ( is_array( $found_thema_terms ) && ! empty( $found_thema_terms ) ) {
 		// Add our custom Fields to each found WP_Term instance
 		// And add to $thema_terms[]
-		foreach( $found_thema_terms as $thema_term ) {
-			foreach( get_fields( $thema_term ) as $key => $val ) {
+		foreach ( $found_thema_terms as $thema_term ) {
+			foreach ( get_fields( $thema_term ) as $key => $val ) {
 				$thema_term->$key = $val;
 			}
 			$thema_terms[] = $thema_term;
@@ -135,31 +163,34 @@ function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
 
 /**
  * gc_get_post_thema_terms()
- * 
+ *
  * This function fills an array of all
  * terms, with their extra fields _for a specific Post_...
- * 
+ *
  * - Only top-lever Terms
  * - 1 by default
- * 
+ *
  * @param String|Number $post_id Post to retrieve linked terms for
+ *
  * @return Array        Array of WPTerm Objects with extra ACF fields
  */
 function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
 	$return_terms = [];
-	if ( !$post_id ) { return $return_terms; }
+	if ( ! $post_id ) {
+		return $return_terms;
+	}
 
 	$post_thema_terms = wp_get_post_terms( $post_id, TAX_THEMA, [
 		'taxonomy'   => TAX_THEMA,
 		'number'     => $term_number, // Return max $term_number Terms
 		'hide_empty' => true,
 		'parent'     => 0,
-		'fields'      => 'names' // Only return names (to use in `gc_get_thema_terms()`)
+		'fields'     => 'names' // Only return names (to use in `gc_get_thema_terms()`)
 	] );
 
 	foreach ( $post_thema_terms as $_term ) {
 		$full_post_thema_term = gc_get_thema_terms( $_term );
-		if ( !empty($full_post_thema_term) ) {
+		if ( ! empty( $full_post_thema_term ) ) {
 			$return_terms[] = $full_post_thema_term[0];
 		}
 	}
@@ -173,13 +204,14 @@ function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
  * @see https://developer.yoast.com/features/xml-sitemaps/api/#exclude-a-taxonomy
  *
  * @param boolean $excluded Whether the taxonomy is excluded by default.
- * @param string  $taxonomy The taxonomy to exclude.
+ * @param string $taxonomy The taxonomy to exclude.
  *
  * @return bool Whether or not a given taxonomy should be excluded.
  */
 function gc_sitemap_exclude_theme_taxonomy( $excluded, $taxonomy ) {
 	return $taxonomy === TAX_THEMA;
 }
+
 add_filter( 'wpseo_sitemap_exclude_taxonomy', 'gc_sitemap_exclude_theme_taxonomy', 10, 2 );
 
 // [7] Append Thema root to Yoast breadcrumbs
@@ -199,13 +231,13 @@ function gc_append_yoast_breadcrumb( $links ) {
 			// - [1] Do not display root
 			// - [2] OR fall back to Taxonomy Rewrite
 			$page_template_query_args = array(
-				'number'      => 1, 
+				'number'      => 1,
 				'sort_column' => 'post_date',
 				'sort_order'  => 'DESC',
 				'meta_key'    => '_wp_page_template',
 				'meta_value'  => TAX_THEMA_OVERVIEW_TEMPLATE
 			);
-			$thema_overview_page = get_pages( $page_template_query_args );
+			$thema_overview_page      = get_pages( $page_template_query_args );
 
 			if ( ! empty( $thema_overview_page ) ) {
 
@@ -213,10 +245,10 @@ function gc_append_yoast_breadcrumb( $links ) {
 				// as Breadcrumb root
 				$taxonomy_page = $thema_overview_page[0];
 				$taxonomy_link = [
-					'url' => get_permalink($taxonomy_page),
-					'text' => get_the_title($taxonomy_page)
+					'url'  => get_permalink( $taxonomy_page ),
+					'text' => get_the_title( $taxonomy_page )
 				];
-				array_splice( $links, -1, 0, [$taxonomy_link] );
+				array_splice( $links, - 1, 0, [ $taxonomy_link ] );
 
 			} else {
 				// [1] .. do nothing...
@@ -242,11 +274,11 @@ add_filter( 'wpseo_breadcrumb_links', 'gc_append_yoast_breadcrumb' );
 // [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage.
 /**
  * Redirect Thema taxonomy Term archive to chosen landingspage.
- * 
- * If we, instead of redirecting, need e.g. to change the Taxonomy 
+ *
+ * If we, instead of redirecting, need e.g. to change the Taxonomy
  * template we could use the `taxonomy_template` (filter) hook instead.
  * As for now: we redirect to the page, if given...
- * 
+ *
  * @see https://developer.wordpress.org/reference/hooks/template_redirect/
  * @see https://wordpress.stackexchange.com/a/209468
  * @see https://developer.wordpress.org/reference/hooks/type_template/
@@ -258,14 +290,14 @@ function gc_redirect_thema_archives() {
 		// Add our custom ACF fields 
 		// (that we've added to our custom Tax)
 		// to this WP_Term..
-		foreach( get_fields( $queried_object ) as $key => $val ) {
+		foreach ( get_fields( $queried_object ) as $key => $val ) {
 			$queried_object->$key = $val;
 		}
 		// When a custom `page` has been added to this term
 		// we redirect to that, instead of the default
 		// taxonomy-thema.php template...
-		if ( !empty( $queried_object->thema_taxonomy_page ) ) {
-			wp_safe_redirect(  $queried_object->thema_taxonomy_page );
+		if ( ! empty( $queried_object->thema_taxonomy_page ) ) {
+			wp_safe_redirect( $queried_object->thema_taxonomy_page );
 			exit;
 		}
 	}
