@@ -79,10 +79,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		public function fn_ictu_thema_register_taxonomy() {
 
-			echo '<h1>Poep!</h1>';
-
-//			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/thema-taxonomy.php';
-
+			require_once plugin_dir_path(  __FILE__ )  . 'includes/thema-taxonomy.php';
 
 		}
 
