@@ -97,9 +97,9 @@ endif;
 /**
  * Load plugin textdomain.
  */
-add_action( 'init', 'fn_ictu_gcconf_load_plugin_textdomain' );
+add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
 
-function fn_ictu_gcconf_load_plugin_textdomain() {
+function fn_ictu_thema_load_plugin_textdomain() {
 
 	load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
