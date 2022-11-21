@@ -67,7 +67,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		private function fn_ictu_thema_setup_actions() {
 
-			add_action( 'init', array( $this, 'fn_ictu_thema_register_taxonomy' ) );
+			add_action( 'init', array( $this, 'fn_ictu_thema_register_taxonomy' ), 20 );
 
 		}
 
