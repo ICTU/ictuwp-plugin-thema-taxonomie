@@ -78,30 +78,23 @@ $thema_tax_args = [
 	"show_in_quick_edit" => true,
 ];
 
-$posttypes = array( 'post', 'page', 'event', 'video_page' );
+// register the taxonomy with these post types
+$post_types_with_thema = [
+	'post',
+	'page',
+	'podcast',
+	'session',
+	'keynote',
+	'speaker',
+	'event',
+	'video_page'
+];
 
-
-//	if ( post_type_exists( 'rijksvideo' ) ) {
-//		$posttypes[] = 'rijksvideo';
-//	}
-if ( post_type_exists( 'podcast' ) ) {
-	$posttypes[] = 'podcast';
-}
-if ( post_type_exists( 'video_page' ) ) {
-	$posttypes[] = 'video_page';
-}
-if ( post_type_exists( 'session' ) ) {
-	$posttypes[] = 'session';
-}
-if ( post_type_exists( 'keynote' ) ) {
-	$posttypes[] = 'keynote';
-}
-if ( post_type_exists( 'speaker' ) ) {
-	$posttypes[] = 'speaker';
-}
+// check if the post types exist
+$post_types_with_thema = array_filter( $post_types_with_thema, 'post_type_exists' );
 
 // [3] Register our Custom Taxonomy
-register_taxonomy( TAX_THEMA, $posttypes, $thema_tax_args );
+register_taxonomy( TAX_THEMA, $post_types_with_thema, $thema_tax_args );
 
 // [4] Get complete Thema term objects
 
