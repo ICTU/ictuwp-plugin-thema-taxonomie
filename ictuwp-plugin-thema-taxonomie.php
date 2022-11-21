@@ -8,7 +8,7 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het tijdelijk aanmaken van de 'thema'-taxonomie
- * Version:             0.0.1
+ * Version:             1.0.1
  * Version description: Initial version.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
@@ -24,8 +24,10 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 //========================================================================================================
+if ( ! taxonomy_exists( TAX_THEMA ) ) {
+	add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
+}
 
-add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
 
 //========================================================================================================
 
@@ -36,7 +38,7 @@ add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    0.0.1
+ * @since    1.0.1
  */
 
 
@@ -79,7 +81,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		public function fn_ictu_thema_register_taxonomy() {
 
-			require_once plugin_dir_path(  __FILE__ )  . 'includes/thema-taxonomy.php';
+			require_once plugin_dir_path( __FILE__ ) . 'includes/thema-taxonomy.php';
 
 		}
 
