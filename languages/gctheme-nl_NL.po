@@ -150,7 +150,7 @@ msgid "https://github.com/ICTU/ictuwp-plugin-thema-taxonomie"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Plugin voor het tijdelijk aanmaken van de 'thema'-taxonomie"
+msgid "Plugin voor het aanmaken van de 'thema'-taxonomie"
 msgstr ""
 
 #. Author of the plugin/theme

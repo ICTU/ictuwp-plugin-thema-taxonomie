@@ -7,7 +7,7 @@
  * @wordpress-plugin
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
- * Description:         Plugin voor het tijdelijk aanmaken van de 'thema'-taxonomie
+ * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
  * Version:             1.0.2
  * Version description: Added English translation files.
  * Author:              Paul van Buuren
