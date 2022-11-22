@@ -96,15 +96,19 @@ endif;
 
 //========================================================================================================
 
-/**
- * Load plugin textdomain.
- */
-add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
+if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
 
-function fn_ictu_thema_load_plugin_textdomain() {
+	/**
+	 * Load plugin textdomain.
+	 * only load translations if we can safely assume the taxonomy is active
+	 */
+	add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
 
-	load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	function fn_ictu_thema_load_plugin_textdomain() {
 
+		load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+	}
 }
 
 //========================================================================================================
