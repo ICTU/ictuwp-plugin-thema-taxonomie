@@ -4,6 +4,8 @@
 // https://github.com/ICTU/ictuwp-gebruikercentraal
 // specifically this file:
 // [root]/wp-content/themes/ictuwp-theme-gc2020/includes/taxonomies/thema-taxonomy.php
+//
+// TODO: check the gc2020 theme to move all TAX_THEMA taxonomy functions and checks to this plugin
 
 /**
  * Custom Taxonomy: Thema
@@ -28,73 +30,78 @@ defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', 'thema' );
 defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
 defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-detail-themas.php' );
 
-// [1] Thema Taxonomy Labels
-$thema_tax_labels = [
-	'name'                       => _x( 'Thema', 'Custom taxonomy labels definition', 'gctheme' ),
-	'singular_name'              => _x( 'Thema', 'Custom taxonomy labels definition', 'gctheme' ),
-	'search_items'               => _x( 'Zoek thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'popular_items'              => _x( 'Populaire thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'all_items'                  => _x( 'Alle thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'edit_item'                  => _x( 'Bewerk thema', 'Custom taxonomy labels definition', 'gctheme' ),
-	'view_item'                  => _x( 'Bekijk thema', 'Custom taxonomy labels definition', 'gctheme' ),
-	'update_item'                => _x( 'Thema bijwerken', 'Custom taxonomy labels definition', 'gctheme' ),
-	'add_new_item'               => _x( 'Voeg nieuw thema toe', 'Custom taxonomy labels definition', 'gctheme' ),
-	'new_item_name'              => _x( 'Nieuwe thema', 'Custom taxonomy labels definition', 'gctheme' ),
-	'separate_items_with_commas' => _x( 'Kommagescheiden thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'add_or_remove_items'        => _x( 'Thema\'s toevoegen of verwijderen', 'Custom taxonomy labels definition', 'gctheme' ),
-	'choose_from_most_used'      => _x( 'Kies uit de meest-gekozen thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'not_found'                  => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'gctheme' ),
-	'no_terms'                   => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'gctheme' ),
-	'items_list_navigation'      => _x( 'Navigatie door themalijst', 'Custom taxonomy labels definition', 'gctheme' ),
-	'items_list'                 => _x( 'Themalijst', 'Custom taxonomy labels definition', 'gctheme' ),
-	'item_link'                  => _x( 'Thema Link', 'Custom taxonomy labels definition', 'gctheme' ),
-	'item_link_description'      => _x( 'Een link naar een Thema', 'Custom taxonomy labels definition', 'gctheme' ),
-	'menu_name'                  => _x( 'Thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'back_to_items'              => _x( 'Terug naar Thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-	'not_found_in_trash'         => _x( 'Geen thema\'s gevonden in de prullenbak', 'Custom taxonomy labels definition', 'gctheme' ),
-	'featured_image'             => _x( 'Uitgelichte afbeelding', 'Custom taxonomy labels definition', 'gctheme' ),
-	'archives'                   => _x( 'Thema overzicht', 'Custom taxonomy labels definition', 'gctheme' ),
-];
 
-// [2] Thema Taxonomy Arguments
-$thema_tax_args = [
-	"labels"             => $thema_tax_labels,
-	"label"              => _x( 'Thema\'s', 'Custom taxonomy arguments definition', 'gctheme' ),
-	"description"        => _x( 'Thema\'s op het gebied van een gebruikersvriendelijke overheid', 'Custom taxonomy arguments definition', 'gctheme' ),
-	"hierarchical"       => true,
-	"public"             => true,
-	"show_ui"            => true,
-	"show_in_menu"       => true,
-	"show_in_nav_menus"  => false,
-	"query_var"          => false,
-	// Needed for tax to appear in Gutenberg editor.
-	'show_in_rest'       => true,
-	"show_admin_column"  => true,
-	// Needed for tax to appear in Gutenberg editor.
-	"rewrite"            => [
-		'slug'       => TAX_THEMA,
-		'with_front' => true,
-	],
-	"show_in_quick_edit" => true,
-];
+if ( ! taxonomy_exists( TAX_THEMA ) ) {
 
-// register the taxonomy with these post types
-$post_types_with_thema = [
-	'post',
-	'page',
-	'podcast',
-	'session',
-	'keynote',
-	'speaker',
-	'event',
-	'video_page'
-];
+	// [1] Thema Taxonomy Labels
+	$thema_tax_labels = [
+		'name'                       => _x( 'Thema', 'Custom taxonomy labels definition', 'gctheme' ),
+		'singular_name'              => _x( 'Thema', 'Custom taxonomy labels definition', 'gctheme' ),
+		'search_items'               => _x( 'Zoek thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'popular_items'              => _x( 'Populaire thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'all_items'                  => _x( 'Alle thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'edit_item'                  => _x( 'Bewerk thema', 'Custom taxonomy labels definition', 'gctheme' ),
+		'view_item'                  => _x( 'Bekijk thema', 'Custom taxonomy labels definition', 'gctheme' ),
+		'update_item'                => _x( 'Thema bijwerken', 'Custom taxonomy labels definition', 'gctheme' ),
+		'add_new_item'               => _x( 'Voeg nieuw thema toe', 'Custom taxonomy labels definition', 'gctheme' ),
+		'new_item_name'              => _x( 'Nieuwe thema', 'Custom taxonomy labels definition', 'gctheme' ),
+		'separate_items_with_commas' => _x( 'Kommagescheiden thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'add_or_remove_items'        => _x( 'Thema\'s toevoegen of verwijderen', 'Custom taxonomy labels definition', 'gctheme' ),
+		'choose_from_most_used'      => _x( 'Kies uit de meest-gekozen thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'not_found'                  => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'gctheme' ),
+		'no_terms'                   => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'gctheme' ),
+		'items_list_navigation'      => _x( 'Navigatie door themalijst', 'Custom taxonomy labels definition', 'gctheme' ),
+		'items_list'                 => _x( 'Themalijst', 'Custom taxonomy labels definition', 'gctheme' ),
+		'item_link'                  => _x( 'Thema Link', 'Custom taxonomy labels definition', 'gctheme' ),
+		'item_link_description'      => _x( 'Een link naar een Thema', 'Custom taxonomy labels definition', 'gctheme' ),
+		'menu_name'                  => _x( 'Thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'back_to_items'              => _x( 'Terug naar Thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
+		'not_found_in_trash'         => _x( 'Geen thema\'s gevonden in de prullenbak', 'Custom taxonomy labels definition', 'gctheme' ),
+		'featured_image'             => _x( 'Uitgelichte afbeelding', 'Custom taxonomy labels definition', 'gctheme' ),
+		'archives'                   => _x( 'Thema overzicht', 'Custom taxonomy labels definition', 'gctheme' ),
+	];
 
-// check if the post types exist
-$post_types_with_thema = array_filter( $post_types_with_thema, 'post_type_exists' );
+	// [2] Thema Taxonomy Arguments
+	$thema_tax_args = [
+		"labels"             => $thema_tax_labels,
+		"label"              => _x( 'Thema\'s', 'Custom taxonomy arguments definition', 'gctheme' ),
+		"description"        => _x( 'Thema\'s op het gebied van een gebruikersvriendelijke overheid', 'Custom taxonomy arguments definition', 'gctheme' ),
+		"hierarchical"       => true,
+		"public"             => true,
+		"show_ui"            => true,
+		"show_in_menu"       => true,
+		"show_in_nav_menus"  => false,
+		"query_var"          => false,
+		// Needed for tax to appear in Gutenberg editor.
+		'show_in_rest'       => true,
+		"show_admin_column"  => true,
+		// Needed for tax to appear in Gutenberg editor.
+		"rewrite"            => [
+			'slug'       => TAX_THEMA,
+			'with_front' => true,
+		],
+		"show_in_quick_edit" => true,
+	];
 
-// [3] Register our Custom Taxonomy
-register_taxonomy( TAX_THEMA, $post_types_with_thema, $thema_tax_args );
+	// register the taxonomy with these post types
+	$post_types_with_thema = [
+		'post',
+		'page',
+		'podcast',
+		'session',
+		'keynote',
+		'speaker',
+		'event',
+		'video_page'
+	];
+
+	// check if the post types exist
+	$post_types_with_thema = array_filter( $post_types_with_thema, 'post_type_exists' );
+
+	// [3] Register our Custom Taxonomy
+	register_taxonomy( TAX_THEMA, $post_types_with_thema, $thema_tax_args );
+
+} // if ( ! taxonomy_exists( TAX_THEMA ) )
 
 // [4] Get complete Thema term objects
 
@@ -118,6 +125,8 @@ register_taxonomy( TAX_THEMA, $post_types_with_thema, $thema_tax_args );
  * @param String $thema_name Specific term name/slug to query
  * @param Array $thema_args Specific term query Arguments to use
  */
+
+
 function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
 	$thema_taxonomy = TAX_THEMA;
 	$thema_terms    = [];
@@ -127,7 +136,7 @@ function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
 		'hide_empty' => false
 	];
 
-	// Query specific term name 
+	// Query specific term name
 	if ( ! empty( $thema_name ) ) {
 		// If we find a Space, or an Uppercase letter, we assume `name`
 		// otherwise we use `slug`
@@ -191,6 +200,7 @@ function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
 	return $return_terms;
 }
 
+
 // [6] Exclude Thema from XML sitemap
 /**
  * Exclude a taxonomy from XML sitemaps.
@@ -201,11 +211,13 @@ function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
  *
  * @return bool Whether or not a given taxonomy should be excluded.
  */
+
 function gc_sitemap_exclude_theme_taxonomy( $excluded, $taxonomy ) {
 	return $taxonomy === TAX_THEMA;
 }
 
 add_filter( 'wpseo_sitemap_exclude_taxonomy', 'gc_sitemap_exclude_theme_taxonomy', 10, 2 );
+
 
 // [7] Append Thema root to Yoast breadcrumbs
 function gc_append_yoast_breadcrumb( $links ) {
@@ -213,14 +225,14 @@ function gc_append_yoast_breadcrumb( $links ) {
 	if ( is_tax( TAX_THEMA ) ) {
 		$term = get_queried_object();
 		// Append taxonomy if 1st-level child term only
-		// old: Home > Term 
-		// new: Home > Taxonomy > Term 
+		// old: Home > Term
+		// new: Home > Taxonomy > Term
 		if ( ! $term->parent ) {
 
 			// Try and find 1 Page
 			// with the TAX_THEMA_OVERVIEW_TEMPLATE template...
 			// Use this as Thema Root
-			// If not available, 
+			// If not available,
 			// - [1] Do not display root
 			// - [2] OR fall back to Taxonomy Rewrite
 			$page_template_query_args = array(
@@ -264,6 +276,7 @@ function gc_append_yoast_breadcrumb( $links ) {
 
 add_filter( 'wpseo_breadcrumb_links', 'gc_append_yoast_breadcrumb' );
 
+
 // [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage.
 /**
  * Redirect Thema taxonomy Term archive to chosen landingspage.
@@ -280,7 +293,7 @@ function gc_redirect_thema_archives() {
 	$queried_object = get_queried_object();
 	// [8] Redirect Term Archive:
 	if ( $queried_object instanceof WP_Term && $queried_object->taxonomy === TAX_THEMA ) {
-		// Add our custom ACF fields 
+		// Add our custom ACF fields
 		// (that we've added to our custom Tax)
 		// to this WP_Term..
 		foreach ( get_fields( $queried_object ) as $key => $val ) {
@@ -295,6 +308,7 @@ function gc_redirect_thema_archives() {
 		}
 	}
 }
+	
 // @NOTE: @TODO: @FIXME:
 // DISABLED FOR NOW...
 // add_action( 'template_redirect', 'gc_redirect_thema_archives' );

@@ -7,9 +7,9 @@
  * @wordpress-plugin
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
- * Description:         Plugin voor het tijdelijk aanmaken van de 'thema'-taxonomie
- * Version:             0.0.1
- * Version description: Initial version.
+ * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
+ * Version:             1.0.2
+ * Version description: Added English translation files.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -24,8 +24,11 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 //========================================================================================================
+// only this plugin should activate the TAX_THEMA taxonomy
+if ( ! taxonomy_exists( TAX_THEMA ) ) {
+	add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
+}
 
-add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
 
 //========================================================================================================
 
@@ -63,7 +66,9 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		}
 
 		/** ----------------------------------------------------------------------------------------------------
-		 * Hook this plugins functions into WordPress
+		 * Hook this plugins functions into WordPress.
+		 * Use priority = 20, to ensure that the taxonomy is registered for post types from other plugins,
+		 * such a s the podcasts plugin (seriously-simple-podcasting)
 		 */
 		private function fn_ictu_thema_setup_actions() {
 
@@ -79,7 +84,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		public function fn_ictu_thema_register_taxonomy() {
 
-			require_once plugin_dir_path(  __FILE__ )  . 'includes/thema-taxonomy.php';
+			require_once plugin_dir_path( __FILE__ ) . 'includes/thema-taxonomy.php';
 
 		}
 
@@ -91,15 +96,19 @@ endif;
 
 //========================================================================================================
 
-/**
- * Load plugin textdomain.
- */
-add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
+if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
 
-function fn_ictu_thema_load_plugin_textdomain() {
+	/**
+	 * Load plugin textdomain.
+	 * only load translations if we can safely assume the taxonomy is active
+	 */
+	add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
 
-	load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	function fn_ictu_thema_load_plugin_textdomain() {
 
+		load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+	}
 }
 
 //========================================================================================================
