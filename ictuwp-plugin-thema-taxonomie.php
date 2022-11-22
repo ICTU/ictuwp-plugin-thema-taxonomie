@@ -24,6 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 //========================================================================================================
+// only this plugin should activate the TAX_THEMA taxonomy
 if ( ! taxonomy_exists( TAX_THEMA ) ) {
 	add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
 }
@@ -38,7 +39,7 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.0.1
+ * @since    0.0.1
  */
 
 
@@ -65,7 +66,9 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		}
 
 		/** ----------------------------------------------------------------------------------------------------
-		 * Hook this plugins functions into WordPress
+		 * Hook this plugins functions into WordPress.
+		 * Use priority = 20, to ensure that the taxonomy is registered for post types from other plugins,
+		 * such a s the podcasts plugin (seriously-simple-podcasting)
 		 */
 		private function fn_ictu_thema_setup_actions() {
 

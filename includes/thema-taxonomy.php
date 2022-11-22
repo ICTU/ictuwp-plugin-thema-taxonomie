@@ -4,6 +4,8 @@
 // https://github.com/ICTU/ictuwp-gebruikercentraal
 // specifically this file:
 // [root]/wp-content/themes/ictuwp-theme-gc2020/includes/taxonomies/thema-taxonomy.php
+//
+// TODO: check the gc2020 theme to move all TAX_THEMA taxonomy functions and checks to this plugin
 
 /**
  * Custom Taxonomy: Thema
@@ -98,7 +100,7 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 	// [3] Register our Custom Taxonomy
 	register_taxonomy( TAX_THEMA, $post_types_with_thema, $thema_tax_args );
 
-}
+} // if ( ! taxonomy_exists( TAX_THEMA ) )
 
 // [4] Get complete Thema term objects
 
@@ -158,7 +160,7 @@ if ( ! function_exists( 'gc_get_thema_terms' ) ) {
 
 		return $thema_terms;
 	}
-}
+} // if ( ! function_exists( 'gc_get_thema_terms' ) )
 
 // [5] Get complete Thema term objects for Post
 
@@ -199,7 +201,7 @@ if ( ! function_exists( 'gc_get_post_thema_terms' ) ) {
 
 		return $return_terms;
 	}
-}
+} // if ( ! function_exists( 'gc_get_post_thema_terms' ) )
 
 // [6] Exclude Thema from XML sitemap
 /**
@@ -215,9 +217,11 @@ if ( ! function_exists( 'gc_sitemap_exclude_theme_taxonomy' ) ) {
 	function gc_sitemap_exclude_theme_taxonomy( $excluded, $taxonomy ) {
 		return $taxonomy === TAX_THEMA;
 	}
-}
 
-add_filter( 'wpseo_sitemap_exclude_taxonomy', 'gc_sitemap_exclude_theme_taxonomy', 10, 2 );
+	add_filter( 'wpseo_sitemap_exclude_taxonomy', 'gc_sitemap_exclude_theme_taxonomy', 10, 2 );
+
+} // if ( ! function_exists( 'gc_sitemap_exclude_theme_taxonomy' ) )
+
 
 // [7] Append Thema root to Yoast breadcrumbs
 if ( ! function_exists( 'gc_append_yoast_breadcrumb' ) ) {
@@ -274,8 +278,11 @@ if ( ! function_exists( 'gc_append_yoast_breadcrumb' ) ) {
 
 		return $links;
 	}
-}
-add_filter( 'wpseo_breadcrumb_links', 'gc_append_yoast_breadcrumb' );
+
+	add_filter( 'wpseo_breadcrumb_links', 'gc_append_yoast_breadcrumb' );
+
+} // if ( ! function_exists( 'gc_append_yoast_breadcrumb' ) )
+
 
 // [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage.
 /**
