@@ -24,6 +24,12 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 //========================================================================================================
+
+defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', 'thema' );
+defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
+defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-detail-themas.php' );
+
+//========================================================================================================
 // only this plugin should activate the TAX_THEMA taxonomy
 if ( ! taxonomy_exists( TAX_THEMA ) ) {
 	add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
