@@ -25,7 +25,15 @@ if ( ! defined( 'WPINC' ) ) {
 
 //========================================================================================================
 
-defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', 'thema' );
+// Dutch slug for taxonomy
+$slug = 'thema';
+
+if ( get_bloginfo( 'language' ) !== 'nl-NL' ) {
+	// non Dutch slug for taxonomy
+	$slug = 'topic';
+}
+
+defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', $slug );
 defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
 defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-detail-themas.php' );
 
@@ -74,12 +82,14 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		/** ----------------------------------------------------------------------------------------------------
 		 * Hook this plugins functions into WordPress.
 		 * Use priority = 20, to ensure that the taxonomy is registered for post types from other plugins,
-		 * such a s the podcasts plugin (seriously-simple-podcasting)
+		 * such as the podcasts plugin (seriously-simple-podcasting)
 		 */
 		private function fn_ictu_thema_setup_actions() {
 
 			add_action( 'init', array( $this, 'fn_ictu_thema_register_taxonomy' ), 20 );
 
+			// add page templates
+			add_filter( 'template_include', array( $this, 'fn_ictu_thema_append_template_locations' ) );
 		}
 
 
@@ -94,6 +104,56 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 		}
 
+
+		/**
+		 * Checks if the template is assigned to the page
+		 *
+		 * @in: $template (string)
+		 *
+		 * @return: $template (string)
+		 *
+		 */
+		public function fn_ictu_thema_append_template_locations( $template ) {
+
+			// Get global post
+			global $post;
+			$file       = '';
+			$pluginpath = plugin_dir_path( __FILE__ );
+
+
+			if ( $post ) {
+				// Do we have a post of whatever kind at hand?
+				// Get template name; this will only work for pages, obviously
+				$page_template = get_post_meta( $post->ID, '_wp_page_template', true );
+
+				if ( ( 'template-overview-themas.php' === $page_template ) || ( 'template-detail-themas.php' === $page_template ) ) {
+					// these names are added by this plugin, so we return
+					// the actual file path for this template
+					$file = $pluginpath . $page_template;
+				} else {
+					return $template;
+				}
+
+			} elseif ( is_tax( TAX_THEMA ) ) {
+				// Are we dealing with a term for the TAX_THEMA taxonomy?
+				$file = $pluginpath . 'taxonomy-thema.php';
+
+			} else {
+				// Not a post, not a term, return the template
+				return $template;
+			}
+
+			// Just to be safe, check if the file actually exists
+			if ( $file && file_exists( $file ) ) {
+				return $file;
+			} else {
+				// o dear, who deleted the file?
+				echo $file;
+			}
+
+			// If all else fails, return template
+			return $template;
+		}
 
 	}
 
@@ -115,6 +175,23 @@ if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
 		load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	}
+
 }
 
 //========================================================================================================
+
+/**
+ * Returns array of allowed page templates
+ *
+ * @return array with extra templates
+ */
+function fn_ictu_thema_add_templates() {
+
+	$return_array = array(
+		"template-overview-themas.php" => "[GC] Thema overzicht",
+		"template-detail-themas.php"   => "[GC] Thema detailpagina"
+	);
+
+	return $return_array;
+
+}
