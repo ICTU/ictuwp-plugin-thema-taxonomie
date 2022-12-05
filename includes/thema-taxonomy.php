@@ -9,20 +9,19 @@
 
 /**
  * Custom Taxonomy: Thema
- * - Non hierarchical (like 'tags')
+ * -  hierarchical (like 'category')
  *
  * @package GebruikerCentraalTheme
  *
  * @see https://developer.wordpress.org/reference/functions/register_taxonomy/
  * @see https://developer.wordpress.org/reference/functions/get_taxonomy_labels/
  *
- * [1] Init Thema taxonomy labels
- * [2] Init Thema taxonomy arguments
- * [3] Register Thema taxonomy
- * [5] fn_ictu_thema_get_post_thema_terms() - Retreive Thema terms with custom field data for Post
- * [6] fn_ictu_thema_yoast_exclude_theme_taxonomy() exclude Thema from XML sitemap
- * [7] Append Thema root to Yoast breadcrumbs
- * [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage
+ * CONTENTS:
+ * Set TAX_THEMA taxonomy labels
+ * Set TAX_THEMA taxonomy arguments
+ * Register TAX_THEMA taxonomy
+ * public function fn_ictu_thema_get_post_thema_terms() - Retreive Thema terms with custom field data for Post
+ * (NOT USED) Redirect Thema taxonomy Term archive to landingspage
  * ----------------------------------------------------- */
 
 
@@ -172,6 +171,8 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
  *
  * - Only top-lever Terms
  * - 1 by default
+ *
+ * used in [themes]/ictuwp-theme-gc2020/includes/gc-fill-context-with-acf-fields.php
  *
  * @param String|Number $post_id Post to retrieve linked terms for
  *
