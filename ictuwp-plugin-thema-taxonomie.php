@@ -92,7 +92,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 			add_filter( 'template_include', array( $this, 'fn_ictu_thema_append_template_locations' ) );
 
 			// filter the breadcrumbs
-			add_filter( 'wpseo_breadcrumb_links', array( $this, 'fn_ictu_thema_filter_yoast_breadcrumb' ) );
+			add_filter( 'wpseo_breadcrumb_links', array( $this, 'fn_ictu_thema_yoast_filter_breadcrumb' ) );
 
 		}
 
@@ -169,7 +169,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 * @return: $links (array)
 		 *
 		 */
-		public function fn_ictu_thema_filter_yoast_breadcrumb( $links ) {
+		public function fn_ictu_thema_yoast_filter_breadcrumb( $links ) {
 
 			if ( is_tax( TAX_THEMA ) ) {
 				// this filter is only for terms in TAX_THEMA taxonomy

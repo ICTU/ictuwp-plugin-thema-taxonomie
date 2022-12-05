@@ -20,7 +20,7 @@
  * [2] Init Thema taxonomy arguments
  * [3] Register Thema taxonomy
  * [5] fn_ictu_thema_get_post_thema_terms() - Retreive Thema terms with custom field data for Post
- * [6] gc_sitemap_exclude_theme_taxonomy() exclude Thema from XML sitemap
+ * [6] fn_ictu_thema_yoast_exclude_theme_taxonomy() exclude Thema from XML sitemap
  * [7] Append Thema root to Yoast breadcrumbs
  * [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage
  * ----------------------------------------------------- */
@@ -202,22 +202,7 @@ function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 )
 }
 
 
-// [6] Exclude Thema from XML sitemap
-/**
- * Exclude a taxonomy from XML sitemaps.
- * @see https://developer.yoast.com/features/xml-sitemaps/api/#exclude-a-taxonomy
- *
- * @param boolean $excluded Whether the taxonomy is excluded by default.
- * @param string $taxonomy The taxonomy to exclude.
- *
- * @return bool Whether or not a given taxonomy should be excluded.
- */
 
-function gc_sitemap_exclude_theme_taxonomy( $excluded, $taxonomy ) {
-	return $taxonomy === TAX_THEMA;
-}
-
-add_filter( 'wpseo_sitemap_exclude_taxonomy', 'gc_sitemap_exclude_theme_taxonomy', 10, 2 );
 
 // [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage.
 /**
