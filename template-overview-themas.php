@@ -23,12 +23,12 @@ if ( function_exists( 'gc_fill_context_with_acf_fields' ) ) {
 /**
  * Add Thema's (terms in Thema taxonomy)
  */
-if ( function_exists( 'gc_get_thema_terms' ) ) {
+if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 	$context['overview']             = [];
 	$context['overview']['items']    = [];
 	$context['overview']['template'] = 'card--thema';
 
-	foreach ( gc_get_thema_terms() as $thema ) {
+	foreach ( fn_ictu_thema_get_thema_terms() as $thema ) {
 		$taxonomy = get_taxonomy( $thema->taxonomy );
 		$term_url = get_home_url() . '/' . $taxonomy->rewrite['slug'] . '/' . $thema->slug;
 
