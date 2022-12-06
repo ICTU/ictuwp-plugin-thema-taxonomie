@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ICTU / Gebruiker Centraal / Thema taxonomie\n"
-"POT-Creation-Date: 2022-12-05 19:24+0100\n"
+"POT-Creation-Date: 2022-12-06 13:41+0100\n"
 "PO-Revision-Date: 2022-11-17 18:42+0100\n"
 "Last-Translator: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language-Team: Paul van Buuren <poedit@wbvb.nl>\n"
@@ -20,6 +20,16 @@ msgstr ""
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: ictuwp-plugin-thema-taxonomie.php:290
+msgctxt "label page template"
+msgid "Thema / overzicht"
+msgstr ""
+
+#: ictuwp-plugin-thema-taxonomie.php:291
+msgctxt "label page template"
+msgid "Thema / detailpagina"
+msgstr ""
 
 #: includes/thema-taxonomy.php:33 includes/thema-taxonomy.php:34
 msgctxt "Custom taxonomy labels definition"
