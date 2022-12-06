@@ -30,7 +30,7 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 
 	foreach ( fn_ictu_thema_get_thema_terms() as $thema ) {
 		$taxonomy = get_taxonomy( $thema->taxonomy );
-		$term_url = get_home_url() . '/' . $taxonomy->rewrite['slug'] . '/' . $thema->slug;
+		$term_url = get_term_link( $thema );
 
 		$item = array(
 			'type'  => 'thema',
