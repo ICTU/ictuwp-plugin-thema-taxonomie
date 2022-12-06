@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ICTU / Gebruiker Centraal / Thema taxonomie\n"
-"POT-Creation-Date: 2022-11-22 11:38+0100\n"
-"PO-Revision-Date: 2022-11-22 11:39+0100\n"
+"POT-Creation-Date: 2022-12-06 13:41+0100\n"
+"PO-Revision-Date: 2022-12-06 13:41+0100\n"
 "Last-Translator: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language-Team: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language: en_US\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: ictuwp-plugin-thema-taxonomie.php\n"
@@ -22,129 +22,139 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: includes/thema-taxonomy.php:37 includes/thema-taxonomy.php:38
+#: ictuwp-plugin-thema-taxonomie.php:290
+msgctxt "label page template"
+msgid "Thema / overzicht"
+msgstr "Template overview all topics"
+
+#: ictuwp-plugin-thema-taxonomie.php:291
+msgctxt "label page template"
+msgid "Thema / detailpagina"
+msgstr "Template single topic"
+
+#: includes/thema-taxonomy.php:33 includes/thema-taxonomy.php:34
 msgctxt "Custom taxonomy labels definition"
 msgid "Thema"
-msgstr ""
+msgstr "Topic"
+
+#: includes/thema-taxonomy.php:35
+msgctxt "Custom taxonomy labels definition"
+msgid "Zoek thema's"
+msgstr "Find topics"
+
+#: includes/thema-taxonomy.php:36
+msgctxt "Custom taxonomy labels definition"
+msgid "Populaire thema's"
+msgstr "Popular topics"
+
+#: includes/thema-taxonomy.php:37
+msgctxt "Custom taxonomy labels definition"
+msgid "Alle thema's"
+msgstr "All topics"
+
+#: includes/thema-taxonomy.php:38
+msgctxt "Custom taxonomy labels definition"
+msgid "Bewerk thema"
+msgstr "Edit topic"
 
 #: includes/thema-taxonomy.php:39
 msgctxt "Custom taxonomy labels definition"
-msgid "Zoek thema's"
-msgstr ""
+msgid "Bekijk thema"
+msgstr "View topic"
 
 #: includes/thema-taxonomy.php:40
 msgctxt "Custom taxonomy labels definition"
-msgid "Populaire thema's"
-msgstr ""
+msgid "Thema bijwerken"
+msgstr "Edit topic"
 
 #: includes/thema-taxonomy.php:41
 msgctxt "Custom taxonomy labels definition"
-msgid "Alle thema's"
-msgstr ""
+msgid "Voeg nieuw thema toe"
+msgstr "Add new topic"
 
 #: includes/thema-taxonomy.php:42
 msgctxt "Custom taxonomy labels definition"
-msgid "Bewerk thema"
-msgstr ""
+msgid "Nieuwe thema"
+msgstr "New topic"
 
 #: includes/thema-taxonomy.php:43
 msgctxt "Custom taxonomy labels definition"
-msgid "Bekijk thema"
-msgstr ""
+msgid "Kommagescheiden thema's"
+msgstr "Comma separated topic"
 
 #: includes/thema-taxonomy.php:44
 msgctxt "Custom taxonomy labels definition"
-msgid "Thema bijwerken"
-msgstr ""
+msgid "Thema's toevoegen of verwijderen"
+msgstr "Add or remove topics"
 
 #: includes/thema-taxonomy.php:45
 msgctxt "Custom taxonomy labels definition"
-msgid "Voeg nieuw thema toe"
-msgstr ""
+msgid "Kies uit de meest-gekozen thema's"
+msgstr "Choose from most popular topics"
 
-#: includes/thema-taxonomy.php:46
+#: includes/thema-taxonomy.php:46 includes/thema-taxonomy.php:47
 msgctxt "Custom taxonomy labels definition"
-msgid "Nieuwe thema"
-msgstr ""
-
-#: includes/thema-taxonomy.php:47
-msgctxt "Custom taxonomy labels definition"
-msgid "Kommagescheiden thema's"
-msgstr ""
+msgid "Geen thema's gevonden"
+msgstr "No topics found"
 
 #: includes/thema-taxonomy.php:48
 msgctxt "Custom taxonomy labels definition"
-msgid "Thema's toevoegen of verwijderen"
-msgstr ""
+msgid "Navigatie door themalijst"
+msgstr "View topic list"
 
 #: includes/thema-taxonomy.php:49
 msgctxt "Custom taxonomy labels definition"
-msgid "Kies uit de meest-gekozen thema's"
-msgstr ""
+msgid "Themalijst"
+msgstr "Topic list"
 
-#: includes/thema-taxonomy.php:50 includes/thema-taxonomy.php:51
+#: includes/thema-taxonomy.php:50
 msgctxt "Custom taxonomy labels definition"
-msgid "Geen thema's gevonden"
-msgstr ""
+msgid "Thema Link"
+msgstr "Topic link"
+
+#: includes/thema-taxonomy.php:51
+msgctxt "Custom taxonomy labels definition"
+msgid "Een link naar een Thema"
+msgstr "Link to topic"
 
 #: includes/thema-taxonomy.php:52
 msgctxt "Custom taxonomy labels definition"
-msgid "Navigatie door themalijst"
-msgstr ""
+msgid "Thema's"
+msgstr "Topics"
 
 #: includes/thema-taxonomy.php:53
 msgctxt "Custom taxonomy labels definition"
-msgid "Themalijst"
-msgstr ""
+msgid "Terug naar Thema's"
+msgstr "Back to topics"
 
 #: includes/thema-taxonomy.php:54
 msgctxt "Custom taxonomy labels definition"
-msgid "Thema Link"
-msgstr ""
+msgid "Geen thema's gevonden in de prullenbak"
+msgstr "No topics in trash"
 
 #: includes/thema-taxonomy.php:55
 msgctxt "Custom taxonomy labels definition"
-msgid "Een link naar een Thema"
-msgstr ""
+msgid "Uitgelichte afbeelding"
+msgstr "Featured image"
 
 #: includes/thema-taxonomy.php:56
 msgctxt "Custom taxonomy labels definition"
-msgid "Thema's"
-msgstr ""
-
-#: includes/thema-taxonomy.php:57
-msgctxt "Custom taxonomy labels definition"
-msgid "Terug naar Thema's"
-msgstr ""
-
-#: includes/thema-taxonomy.php:58
-msgctxt "Custom taxonomy labels definition"
-msgid "Geen thema's gevonden in de prullenbak"
-msgstr ""
-
-#: includes/thema-taxonomy.php:59
-msgctxt "Custom taxonomy labels definition"
-msgid "Uitgelichte afbeelding"
-msgstr ""
-
-#: includes/thema-taxonomy.php:60
-msgctxt "Custom taxonomy labels definition"
 msgid "Thema overzicht"
-msgstr ""
-
-#: includes/thema-taxonomy.php:66
-msgctxt "Custom taxonomy arguments definition"
-msgid "Thema's"
-msgstr ""
+msgstr "Topic overview"
 
 #: includes/thema-taxonomy.php:67
 msgctxt "Custom taxonomy arguments definition"
+msgid "Thema's"
+msgstr "Topics"
+
+#: includes/thema-taxonomy.php:68
+msgctxt "Custom taxonomy arguments definition"
 msgid "Thema's op het gebied van een gebruikersvriendelijke overheid"
-msgstr ""
+msgstr "Topics concerning a user friendly government"
 
 #. Plugin Name of the plugin/theme
 msgid "ICTU / Gebruiker Centraal / Thema taxonomie"
-msgstr ""
+msgstr "ICTU / Gebruiker Centraal / Topic taxonomy"
 
 #. Plugin URI of the plugin/theme
 msgid "https://github.com/ICTU/ictuwp-plugin-thema-taxonomie"
@@ -161,3 +171,15 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/"
 msgstr ""
+
+#. Template Name of the plugin/theme
+msgid "Template Thema's"
+msgstr ""
+
+#~ msgctxt "slug for taxonomy"
+#~ msgid "deslug"
+#~ msgstr "ustheme"
+
+#~ msgctxt "slug voor taxonomie"
+#~ msgid "thema2"
+#~ msgstr "topics"

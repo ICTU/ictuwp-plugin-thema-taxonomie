@@ -9,26 +9,21 @@
 
 /**
  * Custom Taxonomy: Thema
- * - Non hierarchical (like 'tags')
+ * -  hierarchical (like 'category')
  *
  * @package GebruikerCentraalTheme
  *
  * @see https://developer.wordpress.org/reference/functions/register_taxonomy/
  * @see https://developer.wordpress.org/reference/functions/get_taxonomy_labels/
  *
- * [1] Init Thema taxonomy labels
- * [2] Init Thema taxonomy arguments
- * [3] Register Thema taxonomy
- * [4] gc_get_thema_terms() - Retreive Thema terms with custom field data
- * [5] gc_get_post_thema_terms() - Retreive Thema terms with custom field data for Post
- * [6] gc_sitemap_exclude_theme_taxonomy() exclude Thema from XML sitemap
- * [7] Append Thema root to Yoast breadcrumbs
- * [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage
+ * CONTENTS:
+ * Set TAX_THEMA taxonomy labels
+ * Set TAX_THEMA taxonomy arguments
+ * Register TAX_THEMA taxonomy
+ * public function fn_ictu_thema_get_post_thema_terms() - Retreive Thema terms with custom field data for Post
+ * (NOT USED) Redirect Thema taxonomy Term archive to landingspage
  * ----------------------------------------------------- */
 
-defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', 'thema' );
-defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
-defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-detail-themas.php' );
 
 
 if ( ! taxonomy_exists( TAX_THEMA ) ) {
@@ -62,6 +57,11 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 	];
 
 	// [2] Thema Taxonomy Arguments
+	$thema_slug =TAX_THEMA;
+	// TODO: discuss if slug should be set to a page with the overview template
+	// like so:
+	// $thema_slug = fn_ictu_thema_get_thema_overview_page();
+
 	$thema_tax_args = [
 		"labels"             => $thema_tax_labels,
 		"label"              => _x( 'Thema\'s', 'Custom taxonomy arguments definition', 'gctheme' ),
@@ -77,7 +77,7 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 		"show_admin_column"  => true,
 		// Needed for tax to appear in Gutenberg editor.
 		"rewrite"            => [
-			'slug'       => TAX_THEMA,
+			'slug'       => $thema_slug,
 			'with_front' => true,
 		],
 		"show_in_quick_edit" => true,
@@ -103,10 +103,9 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 
 } // if ( ! taxonomy_exists( TAX_THEMA ) )
 
-// [4] Get complete Thema term objects
 
 /**
- * gc_get_thema_terms()
+ * fn_ictu_thema_get_thema_terms()
  *
  * 'Thema' is a custom taxonomy (tag)
  * It has 2 extra ACF fields for an
@@ -127,7 +126,10 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
  */
 
 
-function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
+function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) {
+
+	// TODO: I foresee that editors will want to have a custom order to the taxonomy terms
+	// but for now the terms are ordered alphabetically
 	$thema_taxonomy = TAX_THEMA;
 	$thema_terms    = [];
 	$thema_query    = is_array( $term_args ) ? $term_args : [
@@ -161,10 +163,8 @@ function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
 	return $thema_terms;
 }
 
-// [5] Get complete Thema term objects for Post
-
 /**
- * gc_get_post_thema_terms()
+ * fn_ictu_thema_get_post_thema_terms()
  *
  * This function fills an array of all
  * terms, with their extra fields _for a specific Post_...
@@ -172,11 +172,13 @@ function gc_get_thema_terms( $thema_name = null, $term_args = null ) {
  * - Only top-lever Terms
  * - 1 by default
  *
+ * used in [themes]/ictuwp-theme-gc2020/includes/gc-fill-context-with-acf-fields.php
+ *
  * @param String|Number $post_id Post to retrieve linked terms for
  *
  * @return Array        Array of WPTerm Objects with extra ACF fields
  */
-function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
+function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
 	$return_terms = [];
 	if ( ! $post_id ) {
 		return $return_terms;
@@ -187,11 +189,11 @@ function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
 		'number'     => $term_number, // Return max $term_number Terms
 		'hide_empty' => true,
 		'parent'     => 0,
-		'fields'     => 'names' // Only return names (to use in `gc_get_thema_terms()`)
+		'fields'     => 'names' // Only return names (to use in `fn_ictu_thema_get_thema_terms()`)
 	] );
 
 	foreach ( $post_thema_terms as $_term ) {
-		$full_post_thema_term = gc_get_thema_terms( $_term );
+		$full_post_thema_term = fn_ictu_thema_get_thema_terms( $_term );
 		if ( ! empty( $full_post_thema_term ) ) {
 			$return_terms[] = $full_post_thema_term[0];
 		}
@@ -201,80 +203,6 @@ function gc_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
 }
 
 
-// [6] Exclude Thema from XML sitemap
-/**
- * Exclude a taxonomy from XML sitemaps.
- * @see https://developer.yoast.com/features/xml-sitemaps/api/#exclude-a-taxonomy
- *
- * @param boolean $excluded Whether the taxonomy is excluded by default.
- * @param string $taxonomy The taxonomy to exclude.
- *
- * @return bool Whether or not a given taxonomy should be excluded.
- */
-
-function gc_sitemap_exclude_theme_taxonomy( $excluded, $taxonomy ) {
-	return $taxonomy === TAX_THEMA;
-}
-
-add_filter( 'wpseo_sitemap_exclude_taxonomy', 'gc_sitemap_exclude_theme_taxonomy', 10, 2 );
-
-
-// [7] Append Thema root to Yoast breadcrumbs
-function gc_append_yoast_breadcrumb( $links ) {
-
-	if ( is_tax( TAX_THEMA ) ) {
-		$term = get_queried_object();
-		// Append taxonomy if 1st-level child term only
-		// old: Home > Term
-		// new: Home > Taxonomy > Term
-		if ( ! $term->parent ) {
-
-			// Try and find 1 Page
-			// with the TAX_THEMA_OVERVIEW_TEMPLATE template...
-			// Use this as Thema Root
-			// If not available,
-			// - [1] Do not display root
-			// - [2] OR fall back to Taxonomy Rewrite
-			$page_template_query_args = array(
-				'number'      => 1,
-				'sort_column' => 'post_date',
-				'sort_order'  => 'DESC',
-				'meta_key'    => '_wp_page_template',
-				'meta_value'  => TAX_THEMA_OVERVIEW_TEMPLATE
-			);
-			$thema_overview_page      = get_pages( $page_template_query_args );
-
-			if ( ! empty( $thema_overview_page ) ) {
-
-				// Use 1st found page with proper template
-				// as Breadcrumb root
-				$taxonomy_page = $thema_overview_page[0];
-				$taxonomy_link = [
-					'url'  => get_permalink( $taxonomy_page ),
-					'text' => get_the_title( $taxonomy_page )
-				];
-				array_splice( $links, - 1, 0, [ $taxonomy_link ] );
-
-			} else {
-				// [1] .. do nothing...
-
-				// [2] OR .. use Taxonomy Rewrite as root
-
-				// $taxonomy      = get_taxonomy( TAX_THEMA );
-				// $taxonomy_link = [
-				// 	'url' => get_home_url() . '/' . $taxonomy->rewrite['slug'],
-				// 	'text' => $taxonomy->labels->archives,
-				// 	'term_id' => get_queried_object_id(),
-				// ];
-				// array_splice( $links, -1, 0, [$taxonomy_link] );
-			}
-		}
-	}
-
-	return $links;
-}
-
-add_filter( 'wpseo_breadcrumb_links', 'gc_append_yoast_breadcrumb' );
 
 
 // [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage.
