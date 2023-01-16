@@ -287,8 +287,8 @@ if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
 function fn_ictu_thema_add_templates() {
 
 	$return_array = array(
-		TAX_THEMA_OVERVIEW_TEMPLATE => _x( 'Thema / overzicht', 'label page template', 'gctheme' ),
-		TAX_THEMA_DETAIL_TEMPLATE   => _x( 'Thema / detailpagina', 'label page template', 'gctheme' )
+		TAX_THEMA_OVERVIEW_TEMPLATE => _x( '[Thema] alle thema\'s', 'label page template', 'gctheme' ),
+		TAX_THEMA_DETAIL_TEMPLATE   => _x( '[Thema] thema-detail', 'label page template', 'gctheme' )
 	);
 
 	return $return_array;
