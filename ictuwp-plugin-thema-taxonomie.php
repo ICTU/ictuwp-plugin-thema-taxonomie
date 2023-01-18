@@ -112,9 +112,25 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 				$page = get_field( 'thema_taxonomy_page', TAX_THEMA . '_' . get_queried_object()->term_id );
 				if ( $page ) {
 					// cool, a page is selected for this term
-					// let's redirect to that page
-					wp_redirect( $page->guid );
-					exit;
+					// But is the page published?
+					if ( 'publish' === $page->post_status ) {
+						// good, it is published
+						// let's redirect to that page
+						wp_redirect( $page->guid );
+						exit;
+
+					} else {
+						// bad, we only want published pages
+						$aargh = 'No published page attached to this thema';
+						if ( current_user_can( 'editor' ) ) {
+							$editlink = get_edit_term_link( get_queried_object()->term_id );
+							$aargh    .= '<a href="' . $editlink . '">Please choose a published page for this term.</a>';
+						}
+						die( $aargh );
+
+					}
+
+
 
 				} else {
 					// no page is selected for this term
