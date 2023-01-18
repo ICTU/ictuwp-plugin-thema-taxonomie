@@ -35,7 +35,7 @@ if ( get_bloginfo( 'language' ) !== 'nl-NL' ) {
 
 defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', $slug );
 defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
-defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-detail-themas.php' );
+defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-thema-detail.php' );
 
 //========================================================================================================
 // only this plugin should activate the TAX_THEMA taxonomy
@@ -294,3 +294,8 @@ function fn_ictu_thema_add_templates() {
 	return $return_array;
 
 }
+
+//========================================================================================================
+
+
+
