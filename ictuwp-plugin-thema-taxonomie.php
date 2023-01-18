@@ -94,8 +94,34 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 			// filter the breadcrumbs
 			add_filter( 'wpseo_breadcrumb_links', array( $this, 'fn_ictu_thema_yoast_filter_breadcrumb' ) );
 
+			// check if the term has detail page attached
+			add_action( 'template_redirect', array( $this, 'fn_ictu_thema_check_redirect' ) );
+
 		}
 
+		public function fn_ictu_thema_check_redirect() {
+
+			if ( ! function_exists( 'get_field' ) ) {
+				// we can't check if ACF is not active
+				return;
+			}
+
+			if ( is_tax( TAX_THEMA ) ) {
+
+				// check if the current term has a value for 'thema_taxonomy_page'
+				$page = get_field( 'thema_taxonomy_page', TAX_THEMA . '_' . get_queried_object()->term_id );
+				if ( $page ) {
+					// cool, a page is selected for this term
+					// let's redirect to that page
+					wp_redirect( $page->guid );
+					exit;
+
+				} else {
+					// no page is selected for this term
+					// for now, do nothing
+				}
+			}
+		}
 
 		/** ----------------------------------------------------------------------------------------------------
 		 * Do actually register the post types we need
@@ -150,8 +176,6 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 			// Just to be safe, check if the file actually exists
 			if ( $file && file_exists( $file ) ) {
-				die( 'the file: ' . $file );
-
 				return $file;
 			} else {
 				// o dear, who deleted the file?
