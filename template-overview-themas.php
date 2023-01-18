@@ -33,17 +33,17 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 
 		if ( $thema->thema_taxonomy_page ) {
 			// a special page is available for this term
-			$term_url = $thema->thema_taxonomy_page;
+			$term_url = get_permalink($thema->thema_taxonomy_page->ID );
 		} else {
 			// just use the term link
 			$term_url = get_term_link( $thema );
 		}
 
 		$item = array(
-			'type'        => 'thema',
-			'title'       => $thema->name,
-			'descr'       => $thema->description,
-			'url'         => $term_url,
+			'type'  => 'thema',
+			'title' => $thema->name,
+			'descr' => $thema->description,
+			'url'   => $term_url,
 		);
 
 		if ( $thema->thema_taxonomy_image ) {
