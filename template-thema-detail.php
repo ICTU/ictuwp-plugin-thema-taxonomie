@@ -114,7 +114,7 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 }
 
 /**
- *  Events box
+ * 2 - GC_VIDEO_PAGE_CPT for this thema-tax
  * ----------------------------- */
 if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 
