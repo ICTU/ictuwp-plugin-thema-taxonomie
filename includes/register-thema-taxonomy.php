@@ -3,7 +3,7 @@
 // This file is a direct copy from the NPR repo. See:
 // https://github.com/ICTU/ictuwp-gebruikercentraal
 // specifically this file:
-// [root]/wp-content/themes/ictuwp-theme-gc2020/includes/taxonomies/thema-taxonomy.php
+// [root]/wp-content/themes/ictuwp-theme-gc2020/includes/taxonomies/register-thema-taxonomy.php
 //
 // TODO: check the gc2020 theme to move all TAX_THEMA taxonomy functions and checks to this plugin
 

@@ -9,7 +9,7 @@
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
  * Version:             1.2.1
- * Version description: First draft for thema detail page. 
+ * Version description: First draft for thema detail page.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -104,7 +104,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		public function fn_ictu_thema_register_taxonomy() {
 
-			require_once plugin_dir_path( __FILE__ ) . 'includes/thema-taxonomy.php';
+			require_once plugin_dir_path( __FILE__ ) . 'includes/register-thema-taxonomy.php';
 
 		}
 
@@ -150,6 +150,8 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 			// Just to be safe, check if the file actually exists
 			if ( $file && file_exists( $file ) ) {
+				die( 'the file: ' . $file );
+
 				return $file;
 			} else {
 				// o dear, who deleted the file?
