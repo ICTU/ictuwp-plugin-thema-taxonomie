@@ -29,21 +29,46 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 	$context['overview']['template'] = 'card--thema';
 
 	foreach ( fn_ictu_thema_get_thema_terms() as $thema ) {
-		$taxonomy = get_taxonomy( $thema->taxonomy );
-		$term_url = get_term_link( $thema );
+
+		$page          = get_post( $thema->thema_taxonomy_page );
+		$page_template = get_post_meta( $page->ID, '_wp_page_template', true );
+		$term_url      = null;
+		$name          = $thema->name;
+		$description   = $thema->description;
+
+		if ( ( TAX_THEMA_DETAIL_TEMPLATE === $page_template ) && ( 'publish' === $page->post_status ) ) {
+			// this page has the right template and is published
+			$term_url = get_permalink( $page->ID );
+		} else {
+			// the term SHOULD have a page attached. Force editors to correct this, and
+			// for other users, just show info, but no link
+			if ( current_user_can( 'editor' ) ) {
+				$term_url    = get_edit_term_link( $thema, $thema->taxonomy );
+				$description = 'Editor, please choose the proper page for this term.<br>';
+				$description .= '<strong style="background: red; color: white;"><a href="' . $term_url . '">correct this</a></strong>.';
+
+			}
+		}
 
 		$item = array(
 			'type'  => 'thema',
-			'title' => $thema->name,
-			'descr' => $thema->description,
-			// IGNORE custom page url for now..
-			// 'url'   => $thema->thema_taxonomy_page,
-			'url'   => $term_url
+			'title' => $name,
+			'descr' => $description
 		);
 
-		if ( $thema->thema_taxonomy_image ) {
-			$item['img'] = '<img src="' . $thema->thema_taxonomy_image['sizes']['image-16x9'] . '" alt=""/>';
+		if ( $term_url ) {
+			// URL found
+			$item['url'] = $term_url;
 		}
+		if ( $thema->thema_taxonomy_image ) {
+			// this term has a color scheme (called 'thema_taxonomy_image')
+			$item['thema'] = $thema->thema_taxonomy_image;
+		}
+		/*
+		 * 						$aargh = 'No published page attached to this thema';
+								die( $aargh );
+
+		 */
 
 		$context['overview']['items'][] = $item;
 

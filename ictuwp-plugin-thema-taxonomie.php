@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             1.1.1
- * Version description: Moved page templates from theme to this plugin. 
+ * Version:             1.2.1
+ * Version description: First draft for thema detail page.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -35,7 +35,7 @@ if ( get_bloginfo( 'language' ) !== 'nl-NL' ) {
 
 defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', $slug );
 defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
-defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-detail-themas.php' );
+defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-thema-detail.php' );
 
 //========================================================================================================
 // only this plugin should activate the TAX_THEMA taxonomy
@@ -94,8 +94,47 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 			// filter the breadcrumbs
 			add_filter( 'wpseo_breadcrumb_links', array( $this, 'fn_ictu_thema_yoast_filter_breadcrumb' ) );
 
+			// check if the term has detail page attached
+			add_action( 'template_redirect', array( $this, 'fn_ictu_thema_check_redirect' ) );
+
 		}
 
+		public function fn_ictu_thema_check_redirect() {
+
+			if ( ! function_exists( 'get_field' ) ) {
+				// we can't check if ACF is not active
+				return;
+			}
+
+			if ( is_tax( TAX_THEMA ) ) {
+
+				// check if the current term has a value for 'thema_taxonomy_page'
+				$pageid = get_field( 'thema_taxonomy_page', TAX_THEMA . '_' . get_queried_object()->term_id );
+				$page   = get_post( $pageid );
+				if ( $page ) {
+					// cool, a page is selected for this term
+					// But is the page published?
+					if ( 'publish' === $page->post_status ) {
+						// good, it is published
+						// let's redirect to that page
+						wp_safe_redirect( get_permalink( $page->ID ) );
+						exit;
+
+					} else {
+						// bad, we only want published pages
+						$aargh = 'No published page attached to this thema';
+						if ( current_user_can( 'editor' ) ) {
+							$editlink = get_edit_term_link( get_queried_object()->term_id, get_queried_object()->taxonomy );
+							$aargh    .= '<a href="' . $editlink . '">Please choose a published page for this term.</a>';
+						}
+						die( $aargh );
+					}
+				} else {
+					// no page is selected for this term
+					// for now, do nothing
+				}
+			}
+		}
 
 		/** ----------------------------------------------------------------------------------------------------
 		 * Do actually register the post types we need
@@ -104,7 +143,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		public function fn_ictu_thema_register_taxonomy() {
 
-			require_once plugin_dir_path( __FILE__ ) . 'includes/thema-taxonomy.php';
+			require_once plugin_dir_path( __FILE__ ) . 'includes/register-thema-taxonomy.php';
 
 		}
 
@@ -287,10 +326,15 @@ if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
 function fn_ictu_thema_add_templates() {
 
 	$return_array = array(
-		TAX_THEMA_OVERVIEW_TEMPLATE => _x( 'Thema / overzicht', 'label page template', 'gctheme' ),
-		TAX_THEMA_DETAIL_TEMPLATE   => _x( 'Thema / detailpagina', 'label page template', 'gctheme' )
+		TAX_THEMA_OVERVIEW_TEMPLATE => _x( '[Thema] alle thema\'s', 'label page template', 'gctheme' ),
+		TAX_THEMA_DETAIL_TEMPLATE   => _x( '[Thema] thema-detail', 'label page template', 'gctheme' )
 	);
 
 	return $return_array;
 
 }
+
+//========================================================================================================
+
+
+
