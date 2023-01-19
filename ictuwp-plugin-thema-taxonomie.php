@@ -109,14 +109,15 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 			if ( is_tax( TAX_THEMA ) ) {
 
 				// check if the current term has a value for 'thema_taxonomy_page'
-				$page = get_field( 'thema_taxonomy_page', TAX_THEMA . '_' . get_queried_object()->term_id );
+				$pageid = get_field( 'thema_taxonomy_page', TAX_THEMA . '_' . get_queried_object()->term_id );
+				$page   = get_post( $pageid );
 				if ( $page ) {
 					// cool, a page is selected for this term
 					// But is the page published?
 					if ( 'publish' === $page->post_status ) {
 						// good, it is published
 						// let's redirect to that page
-						wp_redirect( $page->guid );
+						wp_safe_redirect( get_permalink( $page->ID ) );
 						exit;
 
 					} else {
@@ -127,11 +128,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 							$aargh    .= '<a href="' . $editlink . '">Please choose a published page for this term.</a>';
 						}
 						die( $aargh );
-
 					}
-
-
-
 				} else {
 					// no page is selected for this term
 					// for now, do nothing
