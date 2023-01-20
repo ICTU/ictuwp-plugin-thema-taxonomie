@@ -7,10 +7,11 @@
  * @since    Timber 0.1
  */
 
-$context             = Timber::context();
-$timber_post         = new Timber\Post();
-$context['post']     = $timber_post;
-$context['modifier'] = 'thema-overview';
+$context               = Timber::context();
+$timber_post           = new Timber\Post();
+$context['post']       = $timber_post;
+$context['modifier']    = 'thema-overview';
+$context['is_unboxed'] = true;
 
 /**
  * Fill Timber $context with available page/post Blocks/Metaboxes
@@ -64,15 +65,12 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 			// this term has a color scheme (called 'thema_taxonomy_image')
 			$item['thema'] = $thema->thema_taxonomy_image;
 		}
-		/*
-		 * 						$aargh = 'No published page attached to this thema';
-								die( $aargh );
-
-		 */
 
 		$context['overview']['items'][] = $item;
 
 	}
 }
 
-Timber::render( [ 'overview.twig', 'page.twig' ], $context );
+// Add overview-themas.twig to the list of templates to look for
+// If its not found, use overview.twig or page.twig
+Timber::render( [ 'overview-themas.twig', 'overview.twig', 'page.twig' ], $context );
