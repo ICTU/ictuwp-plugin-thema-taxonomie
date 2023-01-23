@@ -130,6 +130,9 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 				if ( $image ) {
 					// decorative image, no value for alt attr.
 					$item['img'] = '<img src="' . $image . '" alt="" />';
+					// Provide Image as URL instead of HTML?
+					// $item['img']     = $image;
+					// $item['img_alt'] = '';
 				}
 				$context['metabox_events']['items'][] = $item;
 			}
@@ -188,6 +191,9 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 			if ( $image ) {
 				// decorative image, no value for alt attr.
 				$item['img'] = '<img src="' . $image . '" alt="" />';
+				// Provide Image as URL instead of HTML?
+				// $item['img']     = $image;
+				// $item['img_alt'] = '';
 			}
 			$context['metabox_webinars']['items'][] = $item;
 		}
@@ -248,6 +254,9 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 			if ( $image ) {
 				// decorative image, no value for alt attr.
 				$item['img'] = '<img src="' . $image . '" alt="" />';
+				// Provide Image as URL instead of HTML?
+				// $item['img']     = $image;
+				// $item['img_alt'] = '';
 			}
 			$context['metabox_podcasts']['items'][] = $item;
 		}
@@ -306,6 +315,9 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 			if ( $image ) {
 				// decorative image, no value for alt attr.
 				$item['img'] = '<img src="' . $image . '" alt="" />';
+				// Provide Image as URL instead of HTML?
+				// $item['img']     = $image;
+				// $item['img_alt'] = '';
 			}
 			$context['metabox_posts']['items'][] = $item;
 		}
@@ -340,7 +352,10 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 			if ( $postitem['metabox_instrumenten_selection_image'] ) {
 				$url         = $postitem['metabox_instrumenten_selection_image']['sizes'][ $imagesize_for_thumbs ];
 				$alt         = $postitem['metabox_instrumenten_selection_image']['alt'];
-				$item['img'] = '<img src="' . $url . '" alt="' . $postitem[''][''] . '" />';
+				$item['img'] = '<img src="' . $url . '" alt="' . $alt . '" />';
+				// Provide Image as URL instead of HTML
+				// $item['img']     = $url;
+				// $item['img_alt'] = $alt;
 			}
 
 			$context['metabox_instrumenten']['items'][] = $item;
@@ -371,12 +386,15 @@ if ( 'ja' === get_field( 'metabox_freehand_show_or_not' ) ) {
 			$item['title'] = $postitem['metabox_freehand_item_title'];
 //			$item['descr']     = $postitem['metabox_freehand_item_description'];
 			$item['alignment'] = $postitem['metabox_freehand_item_image_alignment'];
-			$item['descr']     = '<strong style="background: red; color: white;">' . $item['alignment'] . '</strong>' . $postitem['metabox_freehand_item_description'];
+			$item['descr']     = $postitem['metabox_freehand_item_description'];
 			$item['post_type'] = 'block';
 			if ( $postitem['metabox_freehand_item_image'] ) {
 				$url         = $postitem['metabox_freehand_item_image']['sizes'][ $imagesize_for_thumbs ];
 				$alt         = $postitem['metabox_freehand_item_image']['alt'];
-				$item['img'] = '<img src="' . $url . '" alt="' . $postitem[''][''] . '" />';
+				$item['img'] = '<img src="' . $url . '" alt="' . $alt . '" />';
+				// Provide Image as URL instead of HTML?
+				// $item['img']     = $url;
+				// $item['img_alt'] = $alt;
 			}
 
 			$context['metabox_freehandblocks']['items'][] = $item;
@@ -413,6 +431,9 @@ if ( 'ja' === get_field( 'metabox_communities_show_or_not' ) ) {
 //				$url         = $postitem['metabox_freehand_item_image']['sizes'][ $imagesize_for_thumbs ];
 //				$alt         = $postitem['metabox_freehand_item_image']['alt'];
 //				$item['img'] = '<img src="' . $url . '" alt="' . $postitem[''][''] . '" />';
+//				// Provide Image as URL instead of HTML?
+//				// $item['img']     = $url;
+//				// $item['img_alt'] = $alt;
 //			}
 
 			$context['metabox_communities']['items'][] = $item;
