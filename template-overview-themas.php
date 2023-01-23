@@ -11,6 +11,7 @@ $context             = Timber::context();
 $timber_post         = new Timber\Post();
 $context['post']     = $timber_post;
 $context['modifier'] = 'thema-overview';
+$context['is_unboxed'] = true;
 
 /**
  * Fill Timber $context with available page/post Blocks/Metaboxes
