@@ -27,11 +27,14 @@ if ( function_exists( 'gc_fill_context_with_acf_fields' ) ) {
 
 $templates            = [ 'thema-detail.twig' ];
 $imagesize_for_thumbs = IMAGESIZE_16x9;
-$current_thema_tax    = get_current_thema_tax();
-$acf_id               = TAX_THEMA . '_' . $current_thema_tax;
+$current_thema_taxid  = get_current_thema_tax();
+$acf_id               = TAX_THEMA . '_' . $current_thema_taxid;
 $themaclass           = get_field( 'thema_taxonomy_image', $acf_id );
 
-$context['pageclass_thema'] = $themaclass;
+if ( $themaclass ) {
+	// do not use the slug for the term, use 'thema_taxonomy_image'
+	$context['pageclass_thema'] = $themaclass;
+}
 
 /**
  * returns the ID for the thema term that is
@@ -73,9 +76,9 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 			$metabox_items = get_field( 'metabox_events_selection_manual' );
 
 		} else {
-			// select latest events for $current_thema_tax
+			// select latest events for $current_thema_taxid
 			// _event_start_date is a meta field for the events post type
-			// this query selects future events for the $current_thema_tax
+			// this query selects future events for the $current_thema_taxid
 			$currentdate = date( "Y-m-d" );
 			$args        = array(
 				'posts_per_page' => $maxnr,
@@ -89,7 +92,7 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 					array(
 						'taxonomy' => TAX_THEMA,
 						'field'    => 'term_id',
-						'terms'    => $current_thema_tax,
+						'terms'    => $current_thema_taxid,
 					)
 				),
 				'meta_query'     => array(
@@ -164,7 +167,7 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 				array(
 					'taxonomy' => TAX_THEMA,
 					'field'    => 'term_id',
-					'terms'    => $current_thema_tax,
+					'terms'    => $current_thema_taxid,
 				)
 			)
 		);
@@ -227,7 +230,7 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 				array(
 					'taxonomy' => TAX_THEMA,
 					'field'    => 'term_id',
-					'terms'    => $current_thema_tax,
+					'terms'    => $current_thema_taxid,
 				)
 			)
 		);
@@ -287,7 +290,7 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 				array(
 					'taxonomy' => TAX_THEMA,
 					'field'    => 'term_id',
-					'terms'    => $current_thema_tax,
+					'terms'    => $current_thema_taxid,
 				)
 			)
 		);
@@ -349,6 +352,17 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 			$item['descr']     = $postitem['metabox_instrumenten_selection_description'];
 			$item['url']       = $postitem['metabox_instrumenten_selection_url'];
 			$item['post_type'] = 'instrument';
+			$currentthema      = get_term_by( 'term_id', $current_thema_taxid, TAX_THEMA );
+
+			// teaser.twig has space for displaying themas.
+			// This code below was used to test the color of the thema labels
+//			if ( $currentthema ) {
+//				$thema            = array();
+//				$thema['name']    = $currentthema->name;
+//				$thema['slug']    = $themaclass; // !!!! not the slug please; use the 'thema_taxonomy_image' field
+//				$item['themas'][] = $thema;
+//			}
+
 			if ( $postitem['metabox_instrumenten_selection_image'] ) {
 				$url         = $postitem['metabox_instrumenten_selection_image']['sizes'][ $imagesize_for_thumbs ];
 				$alt         = $postitem['metabox_instrumenten_selection_image']['alt'];
