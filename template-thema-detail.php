@@ -122,7 +122,8 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 			$context['metabox_events']['title'] = ( get_field( 'metabox_events_titel' ) ? get_field( 'metabox_events_titel' ) : '' );
 			// Add CTA 'overzichtslink' as cta Array to metabox_events
 			if ( get_field( 'metabox_events_url_overview' ) ) {
-				$url                     = get_field( 'metabox_events_url_overview' );
+				$url                                       = get_field( 'metabox_events_url_overview' );
+				$context['metabox_events']['cta']          = [];
 				$context['metabox_events']['cta']['title'] = $url['title'];
 				$context['metabox_events']['cta']['url']   = $url['url'];
 			}
@@ -187,6 +188,12 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 		$context['metabox_webinars']          = [];
 		$context['metabox_webinars']['items'] = [];
 		$context['metabox_webinars']['title'] = ( get_field( 'metabox_webinars_titel' ) ? get_field( 'metabox_webinars_titel' ) : '' );
+		if ( get_field( 'metabox_webinars_url_overview' ) ) {
+			$url                                         = get_field( 'metabox_webinars_url_overview' );
+			$context['metabox_webinars']['cta']          = [];
+			$context['metabox_webinars']['cta']['title'] = $url['title'];
+			$context['metabox_webinars']['cta']['url']   = $url['url'];
+		}
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_webinars
 		if ( get_field( 'metabox_webinars_url_overview' ) ) {
@@ -257,6 +264,12 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 		$context['metabox_podcasts']          = [];
 		$context['metabox_podcasts']['items'] = [];
 		$context['metabox_podcasts']['title'] = ( get_field( 'metabox_podcasts_titel' ) ? get_field( 'metabox_podcasts_titel' ) : '' );
+		if ( get_field( 'metabox_podcasts_url_overview' ) ) {
+			$url                                         = get_field( 'metabox_podcasts_url_overview' );
+			$context['metabox_podcasts']['cta']          = [];
+			$context['metabox_podcasts']['cta']['title'] = $url['title'];
+			$context['metabox_podcasts']['cta']['url']   = $url['url'];
+		}
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_podcasts
 		if ( get_field( 'metabox_podcasts_url_overview' ) ) {
@@ -328,7 +341,8 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_posts
 		if ( get_field( 'metabox_posts_url_overview' ) ) {
-			$url                     = get_field( 'metabox_posts_url_overview' );
+			$url                                      = get_field( 'metabox_posts_url_overview' );
+			$context['metabox_posts']['cta']          = [];
 			$context['metabox_posts']['cta']['title'] = $url['title'];
 			$context['metabox_posts']['cta']['url']   = $url['url'];
 		}
