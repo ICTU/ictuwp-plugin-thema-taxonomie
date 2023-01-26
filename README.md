@@ -3,9 +3,10 @@ Plugin voor het aanmaken van de 'thema'-taxonomie
 
 
 ## Current version:
-* 1.2.3 - Updated icons for 'thema_taxonomy_image'.
+* 1.2.4 - Update metabox-cta
 
 ## Version history
+* 1.2.4 - Update metabox-cta
 * 1.2.3 - Updated icons for 'thema_taxonomy_image'.
 * 1.2.2 - Cleanup templates. Add (commented) option to return `img` as URL instead of HTML
 * 1.2.1 - First draft for thema detail page. 
