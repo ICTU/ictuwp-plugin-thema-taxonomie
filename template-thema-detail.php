@@ -328,7 +328,7 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 		$context['metabox_posts']                = [];
 		$context['metabox_posts']['items']       = [];
 		$context['metabox_posts']['title']       = ( get_field( 'metabox_posts_titel' ) ? get_field( 'metabox_posts_titel' ) : '' );
-		$context['metabox_posts']['description'] = ( get_field( 'metabox_instrumenten_description' ) ? get_field( 'metabox_instrumenten_description' ) : '' );
+		$context['metabox_posts']['description'] = ( get_field( 'metabox_posts_description' ) ? get_field( 'metabox_posts_description' ) : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_posts
 		if ( get_field( 'metabox_posts_url_overview' ) ) {
