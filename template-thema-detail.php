@@ -382,30 +382,31 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 
 		foreach ( $metabox_items as $postitem ) {
 
-			$item              = array();
-			$item['title']     = $postitem['metabox_instrumenten_selection_title'];
-			$item['descr']     = $postitem['metabox_instrumenten_selection_description'];
-			$item['url']       = $postitem['metabox_instrumenten_selection_url'];
-			$item['post_type'] = 'instrument';
-			$currentthema      = get_term_by( 'term_id', $current_thema_taxid, TAX_THEMA );
+			// $postitem is a WP_Post object of `Instrument` CPT
+			// and has some extra ACF fields
+			$cpt_acf_link      = get_field( 'instrument_externe_link', $postitem );
 
+			$item              = array();
+			$item['title']     = get_the_title( $postitem );
+			$item['descr']     = get_the_excerpt( $postitem );
+			// - For URL we pick the `instrument_externe_link` but fall back to permalink
+			$item['url']       = $cpt_acf_link ? $cpt_acf_link['url'] : get_post_permalink( $postitem );
+			$item['post_type'] = get_post_type( $postitem );
+			$item['img']       = get_the_post_thumbnail( $postitem, BLOG_SINGLE_DESKTOP );
+			// Exception: we use BLOG_SINGLE_DESKTOP size. Will be shown in max 50% viewport
+			// $item['img']       = get_the_post_thumbnail( $postitem );
+			// $item['img']       = get_the_post_thumbnail( $postitem, $imagesize_for_thumbs );
+			// NOTE: do we want an img _tag_ or _url_?
+			
 			// teaser.twig has space for displaying themas.
 			// This code below was used to test the color of the thema labels
-//			if ( $currentthema ) {
-//				$thema            = array();
-//				$thema['name']    = $currentthema->name;
-//				$thema['slug']    = $themaclass; // !!!! not the slug please; use the 'thema_taxonomy_image' field
-//				$item['themas'][] = $thema;
-//			}
-
-			if ( $postitem['metabox_instrumenten_selection_image'] ) {
-				$url         = $postitem['metabox_instrumenten_selection_image']['sizes'][ $imagesize_for_thumbs ];
-				$alt         = $postitem['metabox_instrumenten_selection_image']['alt'];
-				$item['img'] = '<img src="' . $url . '" alt="' . $alt . '" />';
-				// Provide Image as URL instead of HTML
-				// $item['img']     = $url;
-				// $item['img_alt'] = $alt;
-			}
+			// $currentthema      = get_term_by( 'term_id', $current_thema_taxid, TAX_THEMA );
+			// if ( $currentthema ) {
+			// 	$thema            = array();
+			// 	$thema['name']    = $currentthema->name;
+			// 	$thema['slug']    = $themaclass; // !!!! not the slug please; use the 'thema_taxonomy_image' field
+			// 	$item['themas'][] = $thema;
+			// }
 
 			$context['metabox_instrumenten']['items'][] = $item;
 		}
