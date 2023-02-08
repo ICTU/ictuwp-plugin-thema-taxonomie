@@ -92,7 +92,8 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 		'keynote',
 		'speaker',
 		'event',
-		'video_page'
+		'video_page',
+		'instrument',
 	];
 
 	// check if the post types exist

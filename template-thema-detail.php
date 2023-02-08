@@ -328,7 +328,7 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 		$context['metabox_posts']                = [];
 		$context['metabox_posts']['items']       = [];
 		$context['metabox_posts']['title']       = ( get_field( 'metabox_posts_titel' ) ? get_field( 'metabox_posts_titel' ) : '' );
-		$context['metabox_posts']['description'] = ( get_field( 'metabox_instrumenten_description' ) ? get_field( 'metabox_instrumenten_description' ) : '' );
+		$context['metabox_posts']['description'] = ( get_field( 'metabox_posts_description' ) ? get_field( 'metabox_posts_description' ) : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_posts
 		if ( get_field( 'metabox_posts_url_overview' ) ) {
@@ -368,7 +368,8 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 	if ( $metabox_items ) {
 
 		$context['metabox_instrumenten']                = [];
-		$context['metabox_instrumenten']['items']       = [];
+		$context['metabox_instrumenten']['all']         = []; // ALL instrumenten, unordered
+		$context['metabox_instrumenten']['items']       = []; // Ordered instrumenten, passed to Twig
 		$context['metabox_instrumenten']['title']       = ( get_field( 'metabox_instrumenten_titel' ) ? get_field( 'metabox_instrumenten_titel' ) : '' );
 		$context['metabox_instrumenten']['description'] = ( get_field( 'metabox_instrumenten_description' ) ? get_field( 'metabox_instrumenten_description' ) : '' );
 
@@ -382,33 +383,60 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 
 		foreach ( $metabox_items as $postitem ) {
 
-			$item              = array();
-			$item['title']     = $postitem['metabox_instrumenten_selection_title'];
-			$item['descr']     = $postitem['metabox_instrumenten_selection_description'];
-			$item['url']       = $postitem['metabox_instrumenten_selection_url'];
-			$item['post_type'] = 'instrument';
-			$currentthema      = get_term_by( 'term_id', $current_thema_taxid, TAX_THEMA );
+			// $postitem is a WP_Post object of `Instrument` CPT
+			// and has some extra ACF fields
+			$cpt_acf_link      = get_field( 'instrument_link', $postitem );
+			$cpt_acf_sticky    = get_field( 'instrument_sticky', $postitem );
 
+			$item              = array();
+			$item['title']     = get_the_title( $postitem );
+			$item['descr']     = get_the_excerpt( $postitem );
+			// - For URL we pick the `instrument_link` but fall back to permalink
+			$item['url']       = $cpt_acf_link ? $cpt_acf_link['url'] : get_post_permalink( $postitem );
+			$item['sticky']    = $cpt_acf_sticky;
+			$item['post_type'] = get_post_type( $postitem );
+			$item['img']       = get_the_post_thumbnail( $postitem, BLOG_SINGLE_DESKTOP );
+			// Exception: we use BLOG_SINGLE_DESKTOP size. Will be shown in max 50% viewport
+			// $item['img']       = get_the_post_thumbnail( $postitem );
+			// $item['img']       = get_the_post_thumbnail( $postitem, $imagesize_for_thumbs );
+			// NOTE: do we want an img _tag_ or _url_?
+			
 			// teaser.twig has space for displaying themas.
 			// This code below was used to test the color of the thema labels
-//			if ( $currentthema ) {
-//				$thema            = array();
-//				$thema['name']    = $currentthema->name;
-//				$thema['slug']    = $themaclass; // !!!! not the slug please; use the 'thema_taxonomy_image' field
-//				$item['themas'][] = $thema;
-//			}
+			// $currentthema      = get_term_by( 'term_id', $current_thema_taxid, TAX_THEMA );
+			// if ( $currentthema ) {
+			// 	$thema            = array();
+			// 	$thema['name']    = $currentthema->name;
+			// 	$thema['slug']    = $themaclass; // !!!! not the slug please; use the 'thema_taxonomy_image' field
+			// 	$item['themas'][] = $thema;
+			// }
 
-			if ( $postitem['metabox_instrumenten_selection_image'] ) {
-				$url         = $postitem['metabox_instrumenten_selection_image']['sizes'][ $imagesize_for_thumbs ];
-				$alt         = $postitem['metabox_instrumenten_selection_image']['alt'];
-				$item['img'] = '<img src="' . $url . '" alt="' . $alt . '" />';
-				// Provide Image as URL instead of HTML
-				// $item['img']     = $url;
-				// $item['img_alt'] = $alt;
+			// NOTE: add to `all` first (unordered)
+			//       add to `items` later (ordered)
+			$context['metabox_instrumenten']['all'][] = $item;
+		}
+
+		// Instrumenten have an optional `sticky_instrument` field
+		// Sticky instrumenten are shown first in the list, then title ordered DESC
+		// Reorder items according to Stickyness
+		// NOTE: `sticky` is a custom ACF field, NOT the WP core 'sticky' Post property!
+		$all_instruments = $context['metabox_instrumenten']['all'];
+		if ( !empty( $all_instruments ) ) {
+			// Collect all sticky/non-sticky items
+			// - 1st an array of all sticky items (+ ordered ASC by title)
+			// - 2nd an array of all non-sticky items (already ordered by title)
+			$all_sticky_instruments = array_filter( $all_instruments, function($i) { return $i['sticky']; } );
+			$non_sticky_instruments = array_filter( $all_instruments, function($i) { return !$i['sticky']; } );
+
+			// Now make sure to also SORT the sticky items by title
+			if ( !empty( $all_sticky_instruments ) ) {
+				usort( $all_sticky_instruments, function($a, $b) { return strcmp($a['title'], $b['title']); } );
 			}
 
-			$context['metabox_instrumenten']['items'][] = $item;
+			// Finally construct our new `instrumenten` array of 2 merged arrays:
+			$context['metabox_instrumenten']['items'] = array_merge( $all_sticky_instruments, $non_sticky_instruments );
 		}
+
 		$context['metabox_instrumenten']['columncounter'] = count( $context['metabox_instrumenten']['items'] );
 	}
 }
