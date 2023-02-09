@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             1.2.5
- * Version description: Add Instrument CPT
+ * Version:             1.2.6
+ * Version description: Renamed Constants to reflect GC preference
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -33,13 +33,13 @@ if ( get_bloginfo( 'language' ) !== 'nl-NL' ) {
 	$slug = 'topic';
 }
 
-defined( 'TAX_THEMA' ) or define( 'TAX_THEMA', $slug );
-defined( 'TAX_THEMA_OVERVIEW_TEMPLATE' ) or define( 'TAX_THEMA_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
-defined( 'TAX_THEMA_DETAIL_TEMPLATE' ) or define( 'TAX_THEMA_DETAIL_TEMPLATE', 'template-thema-detail.php' );
+defined( 'GC_THEMA_TAX' ) or define( 'GC_THEMA_TAX', $slug );
+defined( 'GC_THEMA_TAX_OVERVIEW_TEMPLATE' ) or define( 'GC_THEMA_TAX_OVERVIEW_TEMPLATE', 'template-overview-themas.php' );
+defined( 'GC_THEMA_TAX_DETAIL_TEMPLATE' ) or define( 'GC_THEMA_TAX_DETAIL_TEMPLATE', 'template-thema-detail.php' );
 
 //========================================================================================================
-// only this plugin should activate the TAX_THEMA taxonomy
-if ( ! taxonomy_exists( TAX_THEMA ) ) {
+// only this plugin should activate the GC_THEMA_TAX taxonomy
+if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
 	add_action( 'plugins_loaded', array( 'ICTU_GC_thema_taxonomy', 'init' ), 10 );
 }
 
@@ -106,10 +106,10 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 				return;
 			}
 
-			if ( is_tax( TAX_THEMA ) ) {
+			if ( is_tax( GC_THEMA_TAX ) ) {
 
 				// check if the current term has a value for 'thema_taxonomy_page'
-				$pageid = get_field( 'thema_taxonomy_page', TAX_THEMA . '_' . get_queried_object()->term_id );
+				$pageid = get_field( 'thema_taxonomy_page', GC_THEMA_TAX . '_' . get_queried_object()->term_id );
 				$page   = get_post( $pageid );
 				if ( $page ) {
 					// cool, a page is selected for this term
@@ -169,7 +169,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 				// Get template name; this will only work for pages, obviously
 				$page_template = get_post_meta( $post->ID, '_wp_page_template', true );
 
-				if ( ( TAX_THEMA_OVERVIEW_TEMPLATE === $page_template ) || ( TAX_THEMA_DETAIL_TEMPLATE === $page_template ) ) {
+				if ( ( GC_THEMA_TAX_OVERVIEW_TEMPLATE === $page_template ) || ( GC_THEMA_TAX_DETAIL_TEMPLATE === $page_template ) ) {
 					// these names are added by this plugin, so we return
 					// the actual file path for this template
 					$file = $pluginpath . $page_template;
@@ -178,8 +178,8 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 					return $template;
 				}
 
-			} elseif ( is_tax( TAX_THEMA ) ) {
-				// Are we dealing with a term for the TAX_THEMA taxonomy?
+			} elseif ( is_tax( GC_THEMA_TAX ) ) {
+				// Are we dealing with a term for the GC_THEMA_TAX taxonomy?
 				$file = $pluginpath . 'taxonomy-thema.php';
 
 			} else {
@@ -210,8 +210,8 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 */
 		public function fn_ictu_thema_yoast_filter_breadcrumb( $links ) {
 
-			if ( is_tax( TAX_THEMA ) ) {
-				// this filter is only for terms in TAX_THEMA taxonomy
+			if ( is_tax( GC_THEMA_TAX ) ) {
+				// this filter is only for terms in GC_THEMA_TAX taxonomy
 
 				$term = get_queried_object();
 				// Append taxonomy if 1st-level child term only
@@ -223,7 +223,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 					$thema_overview_page_id = $this->fn_ictu_thema_get_thema_overview_page();
 
 					if ( $thema_overview_page_id ) {
-						// Use this page as TAX_THEMA term parent in the breadcrumb
+						// Use this page as GC_THEMA_TAX term parent in the breadcrumb
 						// If not available,
 						// - [1] Do not display root
 						// - [2] OR fall back to Taxonomy Rewrite
@@ -239,7 +239,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 						// [2] OR .. use Taxonomy Rewrite as root
 
-						// $taxonomy      = get_taxonomy( TAX_THEMA );
+						// $taxonomy      = get_taxonomy( GC_THEMA_TAX );
 						// $taxonomy_link = [
 						// 	'url' => get_home_url() . '/' . $taxonomy->rewrite['slug'],
 						// 	'text' => $taxonomy->labels->archives,
@@ -255,8 +255,8 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		}
 
 		/**
-		 * Retrieve a page that is the TAX_THEMA overview page. This
-		 * page shows all available TAX_THEMA terms
+		 * Retrieve a page that is the GC_THEMA_TAX overview page. This
+		 * page shows all available GC_THEMA_TAX terms
 		 *
 		 * @in: $args (array)
 		 *
@@ -270,17 +270,17 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 			// TODO: discuss if we need to make this page a site setting
 			// there is no technical way to limit the number of pages with
-			// template TAX_THEMA_OVERVIEW_TEMPLATE, so the page we find may not be
+			// template GC_THEMA_TAX_OVERVIEW_TEMPLATE, so the page we find may not be
 			// the exact desired page for in the breadcrumb.
 			//
 			// Try and find 1 Page
-			// with the TAX_THEMA_OVERVIEW_TEMPLATE template...
+			// with the GC_THEMA_TAX_OVERVIEW_TEMPLATE template...
 			$page_template_query_args = array(
 				'number'      => 1,
 				'sort_column' => 'post_date',
 				'sort_order'  => 'DESC',
 				'meta_key'    => '_wp_page_template',
-				'meta_value'  => TAX_THEMA_OVERVIEW_TEMPLATE
+				'meta_value'  => GC_THEMA_TAX_OVERVIEW_TEMPLATE
 			);
 			$overview_page            = get_pages( $page_template_query_args );
 
@@ -300,7 +300,7 @@ endif;
 
 //========================================================================================================
 
-if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
+if ( defined( GC_THEMA_TAX ) or taxonomy_exists( GC_THEMA_TAX ) ) {
 
 	/**
 	 * Load plugin textdomain.
@@ -326,8 +326,8 @@ if ( defined( TAX_THEMA ) or taxonomy_exists( TAX_THEMA ) ) {
 function fn_ictu_thema_add_templates() {
 
 	$return_array = array(
-		TAX_THEMA_OVERVIEW_TEMPLATE => _x( '[Thema] alle thema\'s', 'label page template', 'gctheme' ),
-		TAX_THEMA_DETAIL_TEMPLATE   => _x( '[Thema] thema-detail', 'label page template', 'gctheme' )
+		GC_THEMA_TAX_OVERVIEW_TEMPLATE => _x( '[Thema] alle thema\'s', 'label page template', 'gctheme' ),
+		GC_THEMA_TAX_DETAIL_TEMPLATE   => _x( '[Thema] thema-detail', 'label page template', 'gctheme' )
 	);
 
 	return $return_array;

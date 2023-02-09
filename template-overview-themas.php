@@ -37,7 +37,7 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 		$name          = $thema->name;
 		$description   = $thema->description;
 
-		if ( ( TAX_THEMA_DETAIL_TEMPLATE === $page_template ) && ( 'publish' === $page->post_status ) ) {
+		if ( ( GC_THEMA_TAX_DETAIL_TEMPLATE === $page_template ) && ( 'publish' === $page->post_status ) ) {
 			// this page has the right template and is published
 			$term_url = get_permalink( $page->ID );
 		} else {

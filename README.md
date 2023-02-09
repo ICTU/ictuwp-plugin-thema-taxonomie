@@ -3,9 +3,10 @@ Plugin voor het aanmaken van de 'thema'-taxonomie
 
 
 ## Current version:
-* 1.2.5 - Add Instrument CPT
+* 1.2.6 - Renamed Constants to reflect GC preference
 
 ## Version history
+* 1.2.6 - Renamed Constants to reflect GC preference
 * 1.2.5 - Add Instrument CPT
 * 1.2.4 - Update metabox-cta
 * 1.2.3 - Updated icons for 'thema_taxonomy_image'.

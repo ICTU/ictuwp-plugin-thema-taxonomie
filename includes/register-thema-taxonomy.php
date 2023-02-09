@@ -5,7 +5,7 @@
 // specifically this file:
 // [root]/wp-content/themes/ictuwp-theme-gc2020/includes/taxonomies/register-thema-taxonomy.php
 //
-// TODO: check the gc2020 theme to move all TAX_THEMA taxonomy functions and checks to this plugin
+// TODO: check the gc2020 theme to move all GC_THEMA_TAX taxonomy functions and checks to this plugin
 
 /**
  * Custom Taxonomy: Thema
@@ -17,16 +17,16 @@
  * @see https://developer.wordpress.org/reference/functions/get_taxonomy_labels/
  *
  * CONTENTS:
- * Set TAX_THEMA taxonomy labels
- * Set TAX_THEMA taxonomy arguments
- * Register TAX_THEMA taxonomy
+ * Set GC_THEMA_TAX taxonomy labels
+ * Set GC_THEMA_TAX taxonomy arguments
+ * Register GC_THEMA_TAX taxonomy
  * public function fn_ictu_thema_get_post_thema_terms() - Retreive Thema terms with custom field data for Post
  * (NOT USED) Redirect Thema taxonomy Term archive to landingspage
  * ----------------------------------------------------- */
 
 
 
-if ( ! taxonomy_exists( TAX_THEMA ) ) {
+if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
 
 	// [1] Thema Taxonomy Labels
 	$thema_tax_labels = [
@@ -57,7 +57,7 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 	];
 
 	// [2] Thema Taxonomy Arguments
-	$thema_slug =TAX_THEMA;
+	$thema_slug =GC_THEMA_TAX;
 	// TODO: discuss if slug should be set to a page with the overview template
 	// like so:
 	// $thema_slug = fn_ictu_thema_get_thema_overview_page();
@@ -100,9 +100,9 @@ if ( ! taxonomy_exists( TAX_THEMA ) ) {
 	$post_types_with_thema = array_filter( $post_types_with_thema, 'post_type_exists' );
 
 	// [3] Register our Custom Taxonomy
-	register_taxonomy( TAX_THEMA, $post_types_with_thema, $thema_tax_args );
+	register_taxonomy( GC_THEMA_TAX, $post_types_with_thema, $thema_tax_args );
 
-} // if ( ! taxonomy_exists( TAX_THEMA ) )
+} // if ( ! taxonomy_exists( GC_THEMA_TAX ) )
 
 
 /**
@@ -131,7 +131,7 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 
 	// TODO: I foresee that editors will want to have a custom order to the taxonomy terms
 	// but for now the terms are ordered alphabetically
-	$thema_taxonomy = TAX_THEMA;
+	$thema_taxonomy = GC_THEMA_TAX;
 	$thema_terms    = [];
 	$thema_query    = is_array( $term_args ) ? $term_args : [
 		'taxonomy'   => $thema_taxonomy,
@@ -185,8 +185,8 @@ function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 )
 		return $return_terms;
 	}
 
-	$post_thema_terms = wp_get_post_terms( $post_id, TAX_THEMA, [
-		'taxonomy'   => TAX_THEMA,
+	$post_thema_terms = wp_get_post_terms( $post_id, GC_THEMA_TAX, [
+		'taxonomy'   => GC_THEMA_TAX,
 		'number'     => $term_number, // Return max $term_number Terms
 		'hide_empty' => true,
 		'parent'     => 0,
@@ -221,7 +221,7 @@ function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 )
 function gc_redirect_thema_archives() {
 	$queried_object = get_queried_object();
 	// [8] Redirect Term Archive:
-	if ( $queried_object instanceof WP_Term && $queried_object->taxonomy === TAX_THEMA ) {
+	if ( $queried_object instanceof WP_Term && $queried_object->taxonomy === GC_THEMA_TAX ) {
 		// Add our custom ACF fields
 		// (that we've added to our custom Tax)
 		// to this WP_Term..
