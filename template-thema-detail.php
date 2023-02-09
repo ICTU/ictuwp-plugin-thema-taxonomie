@@ -28,7 +28,7 @@ if ( function_exists( 'gc_fill_context_with_acf_fields' ) ) {
 $templates            = [ 'thema-detail.twig' ];
 $imagesize_for_thumbs = IMAGESIZE_16x9;
 $current_thema_taxid  = get_current_thema_tax();
-$acf_id               = TAX_THEMA . '_' . $current_thema_taxid;
+$acf_id               = GC_THEMA_TAX . '_' . $current_thema_taxid;
 $themaclass           = get_field( 'thema_taxonomy_image', $acf_id );
 
 if ( $themaclass ) {
@@ -90,7 +90,7 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 				'fields'         => 'ids', // only return IDs
 				'tax_query'      => array(
 					array(
-						'taxonomy' => TAX_THEMA,
+						'taxonomy' => GC_THEMA_TAX,
 						'field'    => 'term_id',
 						'terms'    => $current_thema_taxid,
 					)
@@ -168,7 +168,7 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 			'fields'         => 'ids', // only return IDs
 			'tax_query'      => array(
 				array(
-					'taxonomy' => TAX_THEMA,
+					'taxonomy' => GC_THEMA_TAX,
 					'field'    => 'term_id',
 					'terms'    => $current_thema_taxid,
 				)
@@ -239,7 +239,7 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 			'fields'         => 'ids', // only return IDs
 			'tax_query'      => array(
 				array(
-					'taxonomy' => TAX_THEMA,
+					'taxonomy' => GC_THEMA_TAX,
 					'field'    => 'term_id',
 					'terms'    => $current_thema_taxid,
 				)
@@ -307,7 +307,7 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 			'fields'         => 'ids', // only return IDs
 			'tax_query'      => array(
 				array(
-					'taxonomy' => TAX_THEMA,
+					'taxonomy' => GC_THEMA_TAX,
 					'field'    => 'term_id',
 					'terms'    => $current_thema_taxid,
 				)
@@ -403,7 +403,7 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 			
 			// teaser.twig has space for displaying themas.
 			// This code below was used to test the color of the thema labels
-			// $currentthema      = get_term_by( 'term_id', $current_thema_taxid, TAX_THEMA );
+			// $currentthema      = get_term_by( 'term_id', $current_thema_taxid, GC_THEMA_TAX );
 			// if ( $currentthema ) {
 			// 	$thema            = array();
 			// 	$thema['name']    = $currentthema->name;
