@@ -25,7 +25,6 @@
  * ----------------------------------------------------- */
 
 
-
 if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
 
 	// [1] Thema Taxonomy Labels
@@ -57,7 +56,7 @@ if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
 	];
 
 	// [2] Thema Taxonomy Arguments
-	$thema_slug =GC_THEMA_TAX;
+	$thema_slug = GC_THEMA_TAX;
 	// TODO: discuss if slug should be set to a page with the overview template
 	// like so:
 	// $thema_slug = fn_ictu_thema_get_thema_overview_page();
@@ -136,8 +135,11 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 	$thema_query    = is_array( $term_args ) ? $term_args : [
 		'taxonomy'   => $thema_taxonomy,
 		// We also want Terms with NO linked content, in this case
-		'hide_empty' => false
+		'hide_empty' => false,
+		// sort by our custom sort order field
+		'orderby'    => 'thema_sort_order'
 	];
+
 
 	// Query specific term name
 	if ( ! empty( $thema_name ) ) {
@@ -204,8 +206,6 @@ function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 )
 }
 
 
-
-
 // [8] (NOT USED) Redirect Thema taxonomy Term archive to landingspage.
 /**
  * Redirect Thema taxonomy Term archive to chosen landingspage.
@@ -237,7 +237,7 @@ function gc_redirect_thema_archives() {
 		}
 	}
 }
-	
+
 // @NOTE: @TODO: @FIXME:
 // DISABLED FOR NOW...
 // add_action( 'template_redirect', 'gc_redirect_thema_archives' );
