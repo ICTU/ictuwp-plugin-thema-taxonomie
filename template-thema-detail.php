@@ -11,10 +11,8 @@
  * @since    Timber 0.1
  */
 
-$context               = Timber::context();
-$timber_post           = new Timber\Post();
-$context['post']       = $timber_post;
-$context['is_unboxed'] = true;
+$context     = Timber::context();
+$timber_post = new Timber\Post();
 
 /**
  * Fill Timber $context with available page/post Blocks/Metaboxes
@@ -385,12 +383,12 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 
 			// $postitem is a WP_Post object of `Instrument` CPT
 			// and has some extra ACF fields
-			$cpt_acf_link      = get_field( 'instrument_link', $postitem );
-			$cpt_acf_sticky    = get_field( 'instrument_sticky', $postitem );
+			$cpt_acf_link   = get_field( 'instrument_link', $postitem );
+			$cpt_acf_sticky = get_field( 'instrument_sticky', $postitem );
 
-			$item              = array();
-			$item['title']     = get_the_title( $postitem );
-			$item['descr']     = get_the_excerpt( $postitem );
+			$item          = array();
+			$item['title'] = get_the_title( $postitem );
+			$item['descr'] = get_the_excerpt( $postitem );
 			// - For URL we pick the `instrument_link` but fall back to permalink
 			$item['url']       = $cpt_acf_link ? $cpt_acf_link['url'] : get_post_permalink( $postitem );
 			$item['sticky']    = $cpt_acf_sticky;
@@ -400,7 +398,7 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 			// $item['img']       = get_the_post_thumbnail( $postitem );
 			// $item['img']       = get_the_post_thumbnail( $postitem, $imagesize_for_thumbs );
 			// NOTE: do we want an img _tag_ or _url_?
-			
+
 			// teaser.twig has space for displaying themas.
 			// This code below was used to test the color of the thema labels
 			// $currentthema      = get_term_by( 'term_id', $current_thema_taxid, GC_THEMA_TAX );
@@ -421,16 +419,22 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 		// Reorder items according to Stickyness
 		// NOTE: `sticky` is a custom ACF field, NOT the WP core 'sticky' Post property!
 		$all_instruments = $context['metabox_instrumenten']['all'];
-		if ( !empty( $all_instruments ) ) {
+		if ( ! empty( $all_instruments ) ) {
 			// Collect all sticky/non-sticky items
 			// - 1st an array of all sticky items (+ ordered ASC by title)
 			// - 2nd an array of all non-sticky items (already ordered by title)
-			$all_sticky_instruments = array_filter( $all_instruments, function($i) { return $i['sticky']; } );
-			$non_sticky_instruments = array_filter( $all_instruments, function($i) { return !$i['sticky']; } );
+			$all_sticky_instruments = array_filter( $all_instruments, function ( $i ) {
+				return $i['sticky'];
+			} );
+			$non_sticky_instruments = array_filter( $all_instruments, function ( $i ) {
+				return ! $i['sticky'];
+			} );
 
 			// Now make sure to also SORT the sticky items by title
-			if ( !empty( $all_sticky_instruments ) ) {
-				usort( $all_sticky_instruments, function($a, $b) { return strcmp($a['title'], $b['title']); } );
+			if ( ! empty( $all_sticky_instruments ) ) {
+				usort( $all_sticky_instruments, function ( $a, $b ) {
+					return strcmp( $a['title'], $b['title'] );
+				} );
 			}
 
 			// Finally construct our new `instrumenten` array of 2 merged arrays:
@@ -445,41 +449,11 @@ if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
 /**
  * 6 - Media + text box
  * ----------------------------- */
-if ( 'ja' === get_field( 'metabox_freehand_show_or_not' ) ) {
 
-	$method        = get_field( 'metabox_freehand_selection_method' );
-	$metabox_items = get_field( 'metabox_freehand_items' );
-
-	if ( $metabox_items ) {
-
-		$context['metabox_freehandblocks']                = [];
-		$context['metabox_freehandblocks']['items']       = [];
-		$context['metabox_freehandblocks']['title']       = ( get_field( 'metabox_freehand_titel' ) ? get_field( 'metabox_freehand_titel' ) : '' );
-		$context['metabox_freehandblocks']['description'] = ( get_field( 'metabox_freehand_description' ) ? get_field( 'metabox_freehand_description' ) : '' );
-
-		foreach ( $metabox_items as $postitem ) {
-
-			$item          = array();
-			$item['title'] = $postitem['metabox_freehand_item_title'];
-//			$item['descr']     = $postitem['metabox_freehand_item_description'];
-			$item['alignment'] = $postitem['metabox_freehand_item_image_alignment'];
-			$item['descr']     = $postitem['metabox_freehand_item_description'];
-			$item['post_type'] = 'block';
-			if ( $postitem['metabox_freehand_item_image'] ) {
-				$url         = $postitem['metabox_freehand_item_image']['sizes'][ $imagesize_for_thumbs ];
-				$alt         = $postitem['metabox_freehand_item_image']['alt'];
-				$item['img'] = '<img src="' . $url . '" alt="' . $alt . '" />';
-				// Provide Image as URL instead of HTML?
-				// $item['img']     = $url;
-				// $item['img_alt'] = $alt;
-			}
-
-			$context['metabox_freehandblocks']['items'][] = $item;
-		}
-		$context['metabox_freehandblocks']['columncounter'] = count( $context['metabox_freehandblocks']['items'] );
-	}
+// show the_content as 6th block
+if ( $timber_post->post_content ) {
+	$context['metabox_freehandblocks'] = $timber_post->post_content;
 }
-
 
 /**
  * 7 - Communities box
@@ -526,6 +500,28 @@ if ( 'ja' === get_field( 'metabox_communities_show_or_not' ) ) {
 		$context['metabox_communities']['columncounter'] = count( $context['metabox_communities']['items'] );
 	}
 }
+
+// get the description from GC_THEMA_TAX term to use as inleiding
+$term_info = get_term_by( 'id', $current_thema_taxid, GC_THEMA_TAX );
+
+if ( $term_info && ! is_wp_error( $term_info ) ) {
+
+	// move content from editor to metabox_freehandblocks
+	$blocks = parse_blocks( $timber_post->post_content );
+	foreach ( $blocks as $block ) {
+		$context['metabox_content'] .= render_block( $block );
+	}
+
+	// Page title is taken from term name
+	$timber_post->post_title = $term_info->name;
+
+	// text for 'inleiding' is taken from term description
+	$timber_post->post_content = $term_info->description;
+
+}
+
+$context['post']       = $timber_post;
+$context['is_unboxed'] = true;
 
 
 Timber::render( $templates, $context );
