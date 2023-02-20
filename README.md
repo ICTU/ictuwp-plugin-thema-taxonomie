@@ -3,9 +3,10 @@ Plugin voor het aanmaken van de 'thema'-taxonomie
 
 
 ## Current version:
-* 1.2.7 - Add sorting order, and display term info on thema detail page.
+* 1.2.8 - Sorting corrected.
 
 ## Version history
+* 1.2.8 - Sorting corrected.
 * 1.2.7 - Add sorting order, and display term info on thema detail page.
 * 1.2.6 - Renamed Constants to reflect GC preference
 * 1.2.5 - Add Instrument CPT
