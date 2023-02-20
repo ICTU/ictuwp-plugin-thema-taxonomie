@@ -46,7 +46,7 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 			if ( current_user_can( 'editor' ) ) {
 				$term_url    = get_edit_term_link( $thema, $thema->taxonomy );
 				$description = 'Editor, please choose the proper page for this term.<br>';
-				$description .= '<strong style="background: red; color: white;"><a href="' . $term_url . '">correct this</a></strong>.';
+				$description .= '<strong><a href="' . $term_url . '" style="background: red; color: white;">correct this</a></strong>.';
 
 			}
 		}
