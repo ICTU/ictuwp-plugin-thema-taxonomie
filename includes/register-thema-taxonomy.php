@@ -140,7 +140,7 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 		// ASC (so lower == first)
 		// If equal/unset, sort by Title ASC
 		'order'      => 'ASC',
-		'orderby'    => 'meta_value_num title',
+		'orderby'    => 'meta_value_num',
 		'meta_key'   => 'thema_sort_order',
 	];
 
