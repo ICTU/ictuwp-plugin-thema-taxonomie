@@ -136,8 +136,12 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 		'taxonomy'   => $thema_taxonomy,
 		// We also want Terms with NO linked content, in this case
 		'hide_empty' => false,
-		// sort by our custom sort order field
-		'orderby'    => 'thema_sort_order'
+		// sort by our custom numerical `thema_sort_order` field
+		// ASC (so lower == first)
+		// If equal/unset, sort by Title ASC
+		'order'      => 'ASC',
+		'orderby'    => 'meta_value_num title',
+		'meta_key'   => 'thema_sort_order',
 	];
 
 
