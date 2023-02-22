@@ -136,14 +136,14 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 		'taxonomy'   => $thema_taxonomy,
 		// We also want Terms with NO linked content, in this case
 		'hide_empty' => false,
-		// sort by our custom numerical `thema_sort_order` field
-		// ASC (so lower == first)
-		// If equal/unset, sort by Title ASC
+		// sort by our custom numerical `thema_sort_order` field ASC (so lower == first)
+		// With equal values, we would *like* to sort alphabetically (on `name`), but that's not possible :(
+		// So: with equal sort order, we sort by `term_id` (which is the order in which they were created)
 		'order'      => 'ASC',
 		'orderby'    => 'meta_value_num',
 		'meta_key'   => 'thema_sort_order',
+		'meta_type'  => 'NUMERIC', // sort numerically, even if `thema_sort_order` is stored as String
 	];
-
 
 	// Query specific term name
 	if ( ! empty( $thema_name ) ) {
@@ -163,6 +163,8 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 			foreach ( get_fields( $thema_term ) as $key => $val ) {
 				$thema_term->$key = $val;
 			}
+			// DEBUG: prefix name with term_id and thema_sort_order
+			// $thema_term->name = $thema_term->term_id . '-' . $thema_term->thema_sort_order . '-' . $thema_term->name;
 			$thema_terms[] = $thema_term;
 		}
 	}
