@@ -3,9 +3,10 @@ Plugin voor het aanmaken van de 'thema'-taxonomie
 
 
 ## Current version:
-* 1.2.9 - Fix thema_sort_order
+* 1.2.10 - Fix PHP8 undefined array key warning
 
 ## Version history
+* 1.2.10 - Fix PHP8 undefined array key warning
 * 1.2.9 - Fix thema_sort_order
 * 1.2.8 - Sorting corrected.
 * 1.2.7 - Add sorting order, and display term info on thema detail page.

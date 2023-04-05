@@ -509,7 +509,9 @@ if ( $term_info && ! is_wp_error( $term_info ) ) {
 	// move content from editor to metabox_freehandblocks
 	$blocks = parse_blocks( $timber_post->post_content );
 	foreach ( $blocks as $block ) {
-		$context['metabox_content'] .= render_block( $block );
+		if ( isset( $block['blockName'] ) && $block['blockName'] !== null ) {
+			$context['metabox_content'] = ($context['metabox_content'] ?? '') . render_block( $block );
+		}
 	}
 
 	// Page title is taken from term name
