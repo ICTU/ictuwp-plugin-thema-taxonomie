@@ -194,6 +194,24 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 			$context['metabox_webinars']['cta']          = [];
 			$context['metabox_webinars']['cta']['title'] = $url['title'];
 			$context['metabox_webinars']['cta']['url']   = $url['url'];
+		} else {
+			// automagically add link to LLK page for videopages
+			$template = 'template-llk-videopages.php';
+			$pages    = get_posts( array(
+				'post_type'  => 'page',
+				'fields'     => 'ids',
+				'meta_key'   => '_wp_page_template',
+				'meta_value' => $template
+			) );
+
+			if ( $pages && $pages[0] ) {
+				// a relevant LLK page was found
+				$context['metabox_webinars']['cta']['title'] = _x( 'Alle video\'s', 'Linktekst voor LLK pagina met podcasts', 'gctheme' );
+				$context['metabox_webinars']['cta']['url']   = get_permalink( $pages[0] );
+			} else {
+				// no manual link added, no page found.
+				// so: no link
+			}
 		}
 
 		foreach ( $metabox_items as $postitem ) {
@@ -257,14 +275,32 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 
 		$context['metabox_podcasts']          = [];
 		$context['metabox_podcasts']['items'] = [];
+		$context['metabox_podcasts']['cta']   = [];
 		$context['metabox_podcasts']['title'] = ( get_field( 'metabox_podcasts_titel' ) ? get_field( 'metabox_podcasts_titel' ) : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_podcasts
 		if ( get_field( 'metabox_podcasts_url_overview' ) ) {
 			$url                                         = get_field( 'metabox_podcasts_url_overview' );
-			$context['metabox_podcasts']['cta']          = [];
 			$context['metabox_podcasts']['cta']['title'] = $url['title'];
 			$context['metabox_podcasts']['cta']['url']   = $url['url'];
+		} else {
+			// automagically add link to LLK page for podcasts
+			$template = 'template-llk-podcasts.php';
+			$pages    = get_posts( array(
+				'post_type'  => 'page',
+				'fields'     => 'ids',
+				'meta_key'   => '_wp_page_template',
+				'meta_value' => $template
+			) );
+
+			if ( $pages && $pages[0] ) {
+				// a relevant LLK page was found
+				$context['metabox_podcasts']['cta']['title'] = _x( 'Alle podcasts', 'Linktekst voor LLK pagina met podcasts', 'gctheme' );
+				$context['metabox_podcasts']['cta']['url']   = get_permalink( $pages[0] );
+			} else {
+				// no manual link added, no page found.
+				// so: no link
+			}
 		}
 
 		foreach ( $metabox_items as $postitem ) {
@@ -325,15 +361,46 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 
 		$context['metabox_posts']                = [];
 		$context['metabox_posts']['items']       = [];
+		$context['metabox_posts']['cta']         = [];
 		$context['metabox_posts']['title']       = ( get_field( 'metabox_posts_titel' ) ? get_field( 'metabox_posts_titel' ) : '' );
 		$context['metabox_posts']['description'] = ( get_field( 'metabox_posts_description' ) ? get_field( 'metabox_posts_description' ) : '' );
 
-		// Add CTA 'overzichtslink' as cta Array to metabox_posts
+		// Add click through link for all posts
 		if ( get_field( 'metabox_posts_url_overview' ) ) {
+			// manually added CTA 'overzichtslink'
 			$url                                      = get_field( 'metabox_posts_url_overview' );
-			$context['metabox_posts']['cta']          = [];
 			$context['metabox_posts']['cta']['title'] = $url['title'];
 			$context['metabox_posts']['cta']['url']   = $url['url'];
+		} else {
+			// automagically add link to LLK page for posts
+			$template = 'template-llk-posts.php';
+			$pages    = get_posts( array(
+				'post_type'  => 'page',
+				'fields'     => 'ids',
+				'meta_key'   => '_wp_page_template',
+				'meta_value' => $template
+			) );
+
+			if ( $pages && $pages[0] ) {
+				// a relevant LLK page was found
+
+				$context['metabox_posts']['cta']['title'] = _x( 'Alle berichten', 'Linktekst voor LLK pagina met berichten', 'gctheme' );
+
+				// see if we can add GC_THEMA_TAX as extra filter
+				$term_info = get_term_by( 'id', $current_thema_taxid, GC_THEMA_TAX );
+
+				if ( $term_info && ! is_wp_error( $term_info ) ) {
+					// append thema slug to LLK link
+					$item_url_vars                          = [ GC_QUERYVAR_THEMA => $term_info->slug ];
+					$context['metabox_posts']['cta']['url'] = add_query_arg( $item_url_vars, get_permalink( $pages[0] ) );
+				} else {
+					// just use the permalink
+					$context['metabox_posts']['cta']['url'] = get_permalink( $pages[0] );
+				}
+			} else {
+				// no manual link added, no page found.
+				// so: no link
+			}
 		}
 
 		foreach ( $metabox_items as $postitem ) {
