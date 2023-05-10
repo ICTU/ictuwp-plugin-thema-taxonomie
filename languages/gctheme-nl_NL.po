@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ICTU / Gebruiker Centraal / Thema taxonomie\n"
-"POT-Creation-Date: 2023-05-09 16:40+0200\n"
-"PO-Revision-Date: 2023-05-09 16:40+0200\n"
+"POT-Creation-Date: 2023-05-10 16:39+0200\n"
+"PO-Revision-Date: 2023-05-10 16:39+0200\n"
 "Last-Translator: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language-Team: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language: nl_NL\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: ictuwp-plugin-thema-taxonomie.php\n"
@@ -155,17 +155,17 @@ msgstr ""
 
 #: template-thema-detail.php:209
 msgctxt "Linktekst voor LLK pagina met podcasts"
-msgid "Alle video's"
+msgid "Bekijk alle video's"
 msgstr ""
 
 #: template-thema-detail.php:298
 msgctxt "Linktekst voor LLK pagina met podcasts"
-msgid "Alle podcasts"
+msgid "Bekijk alle podcasts"
 msgstr ""
 
-#: template-thema-detail.php:390
+#: template-thema-detail.php:387
 msgctxt "Linktekst voor LLK pagina met berichten"
-msgid "Alle berichten"
+msgid "Bekijk alle berichten"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
