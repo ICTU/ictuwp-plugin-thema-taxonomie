@@ -186,12 +186,12 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 
 		$context['metabox_webinars']          = [];
 		$context['metabox_webinars']['items'] = [];
+		$context['metabox_webinars']['cta']   = [];
 		$context['metabox_webinars']['title'] = ( get_field( 'metabox_webinars_titel' ) ? get_field( 'metabox_webinars_titel' ) : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_webinars
 		if ( get_field( 'metabox_webinars_url_overview' ) ) {
 			$url                                         = get_field( 'metabox_webinars_url_overview' );
-			$context['metabox_webinars']['cta']          = [];
 			$context['metabox_webinars']['cta']['title'] = $url['title'];
 			$context['metabox_webinars']['cta']['url']   = $url['url'];
 		} else {
@@ -577,7 +577,7 @@ if ( $term_info && ! is_wp_error( $term_info ) ) {
 	$blocks = parse_blocks( $timber_post->post_content );
 	foreach ( $blocks as $block ) {
 		if ( isset( $block['blockName'] ) && $block['blockName'] !== null ) {
-			$context['metabox_content'] = ($context['metabox_content'] ?? '') . render_block( $block );
+			$context['metabox_content'] = ( $context['metabox_content'] ?? '' ) . render_block( $block );
 		}
 	}
 
