@@ -61,17 +61,18 @@ function get_current_thema_tax() {
 /**
  *  Events box
  * ----------------------------- */
-if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
+$metabox_fields = get_field( 'events_bij_dit_thema' );
+if ( 'ja' === $metabox_fields['metabox_events_show_or_not'] ) {
 
 	if ( class_exists( 'EM_Events' ) ) {
 		// the events manager is active, which helps for selecting events
-		$method        = get_field( 'metabox_events_selection_method' );
+		$method        = $metabox_fields['metabox_events_selection_method'];
 		$maxnr         = 3; // todo TBD: should this be a user editable field?
 		$metabox_items = array();
 
 		if ( 'manualxx' === $method ) {
 			// manually selected events, returns an array of posts
-			$metabox_items = get_field( 'metabox_events_selection_manual' );
+			$metabox_items = $metabox_fields['metabox_events_selection_manual'];
 
 		} else {
 			// select latest events for $current_thema_taxid
@@ -117,11 +118,11 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 			// we have events
 			$context['metabox_events']          = [];
 			$context['metabox_events']['items'] = [];
-			$context['metabox_events']['title'] = ( get_field( 'metabox_events_titel' ) ? get_field( 'metabox_events_titel' ) : '' );
+			$context['metabox_events']['title'] = ( $metabox_fields['metabox_events_titel'] ? $metabox_fields['metabox_events_titel'] : '' );
 
 			// Add CTA 'overzichtslink' as cta Array to metabox_events
-			if ( get_field( 'metabox_events_url_overview' ) ) {
-				$url                                       = get_field( 'metabox_events_url_overview' );
+			if ( $metabox_fields['metabox_events_url_overview'] ) {
+				$url                                       = $metabox_fields['metabox_events_url_overview'];
 				$context['metabox_events']['cta']          = [];
 				$context['metabox_events']['cta']['title'] = $url['title'];
 				$context['metabox_events']['cta']['url']   = $url['url'];
@@ -148,15 +149,16 @@ if ( 'ja' === get_field( 'metabox_events_show_or_not' ) ) {
 /**
  * 2 - GC_VIDEO_PAGE_CPT for this thema-tax
  * ----------------------------- */
-if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
+$metabox_fields = get_field( 'videos' );
+if ( 'ja' === $metabox_fields['metabox_webinars_show_or_not'] ) {
 
-	$method        = get_field( 'metabox_webinars_selection_method' );
 	$maxnr         = 3; // todo TBD: should this be a user editable field?
 	$metabox_items = array();
+	$method        = $metabox_fields['metabox_webinars_selection_method'];
 
 	if ( 'manual' === $method ) {
 		// manually selected events, returns an array of posts
-		$metabox_items = get_field( 'metabox_webinars_selection_manual' );
+		$metabox_items = $metabox_fields['metabox_webinars_selection_manual'];
 
 	} else {
 		$args        = array(
@@ -187,11 +189,11 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 		$context['metabox_webinars']          = [];
 		$context['metabox_webinars']['items'] = [];
 		$context['metabox_webinars']['cta']   = [];
-		$context['metabox_webinars']['title'] = ( get_field( 'metabox_webinars_titel' ) ? get_field( 'metabox_webinars_titel' ) : '' );
+		$context['metabox_webinars']['title'] = ( $metabox_fields['metabox_webinars_titel'] ? $metabox_fields['metabox_webinars_titel'] : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_webinars
-		if ( get_field( 'metabox_webinars_url_overview' ) && ( 'manual' === $method ) ) {
-			$url                                         = get_field( 'metabox_webinars_url_overview' );
+		if ( $metabox_fields['metabox_webinars_url_overview'] && ( 'manual' === $method ) ) {
+			$url                                         = $metabox_fields['metabox_webinars_url_overview'];
 			$context['metabox_webinars']['cta']['title'] = $url['title'];
 			$context['metabox_webinars']['cta']['url']   = $url['url'];
 		} else {
@@ -237,15 +239,16 @@ if ( 'ja' === get_field( 'metabox_webinars_show_or_not' ) ) {
 /**
  * 3 - Podcasts box
  * ----------------------------- */
-if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
+$metabox_fields = get_field( 'podcasts' );
+if ( 'ja' === $metabox_fields['metabox_podcasts_show_or_not'] ) {
 
-	$method        = get_field( 'metabox_podcasts_selection_method' );
+	$method        = $metabox_fields['metabox_podcasts_selection_method'];
 	$maxnr         = 3; // todo TBD: should this be a user editable field?
 	$metabox_items = array();
 
 	if ( 'manual' === $method ) {
 		// manually selected events, returns an array of posts
-		$metabox_items = get_field( 'metabox_podcasts_selection_manual' );
+		$metabox_items = $metabox_fields['metabox_podcasts_selection_manual'];
 
 	} else {
 		$args        = array(
@@ -276,11 +279,11 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 		$context['metabox_podcasts']          = [];
 		$context['metabox_podcasts']['items'] = [];
 		$context['metabox_podcasts']['cta']   = [];
-		$context['metabox_podcasts']['title'] = ( get_field( 'metabox_podcasts_titel' ) ? get_field( 'metabox_podcasts_titel' ) : '' );
+		$context['metabox_podcasts']['title'] = ( $metabox_fields['metabox_podcasts_titel'] ? $metabox_fields['metabox_podcasts_titel'] : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_podcasts
-		if ( get_field( 'metabox_podcasts_url_overview' ) && ( 'manual' === $method ) ) {
-			$url                                         = get_field( 'metabox_podcasts_url_overview' );
+		if ( $metabox_fields['metabox_podcasts_url_overview'] && ( 'manual' === $method ) ) {
+			$url                                         = $metabox_fields['metabox_podcasts_url_overview'];
 			$context['metabox_podcasts']['cta']['title'] = $url['title'];
 			$context['metabox_podcasts']['cta']['url']   = $url['url'];
 		} else {
@@ -323,15 +326,16 @@ if ( 'ja' === get_field( 'metabox_podcasts_show_or_not' ) ) {
 /**
  * 4 - Posts box
  * ----------------------------- */
-if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
+$metabox_fields = get_field( 'berichten' );
+if ( 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) {
 
-	$method        = get_field( 'metabox_posts_selection_method' );
+	$method        = $metabox_fields['metabox_posts_selection_method'];
 	$maxnr         = 3; // todo TBD: should this be a user editable field?
 	$metabox_items = array();
 
 	if ( 'manual' === $method ) {
 		// manually selected events, returns an array of posts
-		$metabox_items = get_field( 'metabox_posts_selection_manual' );
+		$metabox_items = $metabox_fields['metabox_posts_selection_manual'];
 
 	} else {
 		$args        = array(
@@ -362,13 +366,13 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 		$context['metabox_posts']                = [];
 		$context['metabox_posts']['items']       = [];
 		$context['metabox_posts']['cta']         = [];
-		$context['metabox_posts']['title']       = ( get_field( 'metabox_posts_titel' ) ? get_field( 'metabox_posts_titel' ) : '' );
-		$context['metabox_posts']['description'] = ( get_field( 'metabox_posts_description' ) ? get_field( 'metabox_posts_description' ) : '' );
+		$context['metabox_posts']['title']       = ( $metabox_fields['metabox_posts_titel'] ? $metabox_fields['metabox_posts_titel'] : '' );
+		$context['metabox_posts']['description'] = ( $metabox_fields['metabox_posts_description'] ? $metabox_fields['metabox_posts_description'] : '' );
 
 		// Add click through link for all posts
-		if ( get_field( 'metabox_posts_url_overview' ) && ( 'manual' === $method ) ) {
+		if ( $metabox_fields['metabox_posts_url_overview'] && ( 'manual' === $method ) ) {
 			// manually added CTA 'overzichtslink'
-			$url                                      = get_field( 'metabox_posts_url_overview' );
+			$url                                      = $metabox_fields['metabox_posts_url_overview'];
 			$context['metabox_posts']['cta']['title'] = $url['title'];
 			$context['metabox_posts']['cta']['url']   = $url['url'];
 		} else {
@@ -424,23 +428,24 @@ if ( 'ja' === get_field( 'metabox_posts_show_or_not' ) ) {
 /**
  * 5 - Instrumenten box
  * ----------------------------- */
-if ( 'ja' === get_field( 'metabox_instrumenten_show_or_not' ) ) {
+$metabox_fields = get_field( 'instrumenten' );
+if ( 'ja' === $metabox_fields['metabox_instrumenten_show_or_not'] ) {
 
-	$method        = get_field( 'metabox_instrumenten_selection_method' );
+	$method        = $metabox_fields['metabox_instrumenten_selection_method'];
 	$maxnr         = 3; // todo TBD: should this be a user editable field?
-	$metabox_items = get_field( 'metabox_instrumenten_selection' );
+	$metabox_items = $metabox_fields['metabox_instrumenten_selection'];
 
 	if ( $metabox_items ) {
 
 		$context['metabox_instrumenten']                = [];
 		$context['metabox_instrumenten']['all']         = []; // ALL instrumenten, unordered
 		$context['metabox_instrumenten']['items']       = []; // Ordered instrumenten, passed to Twig
-		$context['metabox_instrumenten']['title']       = ( get_field( 'metabox_instrumenten_titel' ) ? get_field( 'metabox_instrumenten_titel' ) : '' );
-		$context['metabox_instrumenten']['description'] = ( get_field( 'metabox_instrumenten_description' ) ? get_field( 'metabox_instrumenten_description' ) : '' );
+		$context['metabox_instrumenten']['title']       = ( $metabox_fields['metabox_instrumenten_titel'] ? $metabox_fields['metabox_instrumenten_titel'] : '' );
+		$context['metabox_instrumenten']['description'] = ( $metabox_fields['metabox_instrumenten_description'] ? $metabox_fields['metabox_instrumenten_description'] : '' );
 
 		// Add CTA 'overzichtslink' as cta Array to metabox_instrumenten
-		if ( get_field( 'metabox_instrumenten_url_overview' ) ) {
-			$url                                             = get_field( 'metabox_instrumenten_url_overview' );
+		if ( $metabox_fields['metabox_instrumenten_url_overview'] ) {
+			$url                                             = $metabox_fields['metabox_instrumenten_url_overview'];
 			$context['metabox_instrumenten']['cta']          = [];
 			$context['metabox_instrumenten']['cta']['title'] = $url['title'];
 			$context['metabox_instrumenten']['cta']['url']   = $url['url'];
