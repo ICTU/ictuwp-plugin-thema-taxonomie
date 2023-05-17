@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version history
+* 1.2.12 - Bugfix for ACF fields in a group.
 * 1.2.11 - Automatic links for posts, video, podcast blocks.
 * 1.2.10 - Fix PHP8 undefined array key warning
 * 1.2.9 - Fix thema_sort_order
