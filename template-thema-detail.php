@@ -64,7 +64,7 @@ function get_current_thema_tax() {
 // Only show events if Events Manager plugin is active
 if ( class_exists( 'EM_Events' ) ) {
 
-	$metabox_fields = get_field( 'events_bij_dit_thema' );
+	$metabox_fields = get_field( 'events' );
 
 	if ( $metabox_fields && 'ja' === $metabox_fields['metabox_events_show_or_not'] ) {
 
