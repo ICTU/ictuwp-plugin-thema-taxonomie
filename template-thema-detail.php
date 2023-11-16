@@ -303,7 +303,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_podcasts_show_or_not']
 
 			if ( $pages && $pages[0] ) {
 				// a relevant LLK page was found
-				$context['metabox_podcasts']['cta']['title'] = _x( 'Bekijk alle podcasts', 'Linktekst voor LLK pagina met podcasts', 'gctheme' );
+				$context['metabox_podcasts']['cta']['title'] = _x( 'Beluister alle podcasts', 'Linktekst voor LLK pagina met podcasts', 'gctheme' );
 				$context['metabox_podcasts']['cta']['url']   = get_permalink( $pages[0] );
 			} else {
 				// no manual link added, no page found.
@@ -394,7 +394,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
 			if ( $pages && $pages[0] ) {
 				// a relevant LLK page was found
 
-				$context['metabox_posts']['cta']['title'] = _x( 'Bekijk alle berichten', 'Linktekst voor LLK pagina met berichten', 'gctheme' );
+				$context['metabox_posts']['cta']['title'] = _x( 'Lees alle artikelen', 'Linktekst voor LLK pagina met berichten', 'gctheme' );
 
 				// see if we can add GC_THEMA_TAX as extra filter
 				$term_info = get_term_by( 'id', $current_thema_taxid, GC_THEMA_TAX );
