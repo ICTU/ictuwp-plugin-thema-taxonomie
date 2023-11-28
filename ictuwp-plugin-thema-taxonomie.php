@@ -30,7 +30,7 @@ $slug = 'thema';
 
 if ( get_bloginfo( 'language' ) !== 'nl-NL' ) {
 	// non Dutch slug for taxonomy
-	$slug = 'topic';
+	$slug = 'thema'; // TODO: see bug GC-575
 }
 
 defined( 'GC_THEMA_TAX' ) or define( 'GC_THEMA_TAX', $slug );
@@ -300,21 +300,18 @@ endif;
 
 //========================================================================================================
 
-if ( defined( GC_THEMA_TAX ) or taxonomy_exists( GC_THEMA_TAX ) ) {
+/**
+ * Load plugin textdomain.
+ * only load translations if we can safely assume the taxonomy is active
+ */
+add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
 
-	/**
-	 * Load plugin textdomain.
-	 * only load translations if we can safely assume the taxonomy is active
-	 */
-	add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
+function fn_ictu_thema_load_plugin_textdomain() {
 
-	function fn_ictu_thema_load_plugin_textdomain() {
-
-		load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
-	}
+	load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 }
+
 
 //========================================================================================================
 
