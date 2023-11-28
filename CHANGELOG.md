@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version history
+* 1.2.14 - Updated and checked correct use of translations.
 * 1.2.13 - GC-533: Read-more links microcopy.
 * 1.2.12 - Bugfix for ACF fields in a group.
 * 1.2.11 - Automatic links for posts, video, podcast blocks.
