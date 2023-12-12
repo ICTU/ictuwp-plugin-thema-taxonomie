@@ -161,6 +161,11 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 		// And add to $thema_terms[]
 		foreach ( $found_thema_terms as $thema_term ) {
 			foreach ( get_fields( $thema_term ) as $key => $val ) {
+				// If we have a linked Page, add it's URL to the Term as extra `url` property
+				if( $key == 'thema_taxonomy_page' && ! empty( $val ) ) {
+					$thema_term->url = get_permalink( $val );
+				}
+				// Add our custom ACF fields to this WP_Term..
 				$thema_term->$key = $val;
 			}
 			// DEBUG: prefix name with term_id and thema_sort_order
