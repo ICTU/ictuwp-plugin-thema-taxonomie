@@ -159,6 +159,9 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 	if ( is_array( $found_thema_terms ) && ! empty( $found_thema_terms ) ) {
 		// Add our custom Fields to each found WP_Term instance
 		// And add to $thema_terms[]
+		$thema_terms['title'] =  _n( 'Hoort bij het thema', 'Hoort bij de thema\'s', count( $found_thema_terms ), 'gctheme' ) ;
+		$thema_terms['items']   = array();
+
 		foreach ( $found_thema_terms as $thema_term ) {
 			foreach ( get_fields( $thema_term ) as $key => $val ) {
 				// If we have a linked Page, add it's URL to the Term as extra `url` property
@@ -170,7 +173,7 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 			}
 			// DEBUG: prefix name with term_id and thema_sort_order
 			// $thema_term->name = $thema_term->term_id . '-' . $thema_term->thema_sort_order . '-' . $thema_term->name;
-			$thema_terms[] = $thema_term;
+			$thema_terms['items'][] = $thema_term;
 		}
 	}
 
