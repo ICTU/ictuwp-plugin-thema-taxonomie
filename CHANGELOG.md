@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version history
+* 1.2.16 - Make title translatable. 
 * 1.2.15 - Add Term `url` property to allow linking to coupled page.
 * 1.2.14 - Updated and checked correct use of translations.
 * 1.2.13 - GC-533: Read-more links microcopy.
