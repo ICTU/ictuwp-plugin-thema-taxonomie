@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             1.2.16
- * Version description: Make title translatable. 
+ * Version:             1.2.17
+ * Version description: Fix regession re: `fn_ictu_thema_get_thema_terms()`
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+

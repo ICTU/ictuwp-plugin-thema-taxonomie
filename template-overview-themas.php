@@ -30,7 +30,7 @@ if ( function_exists( 'fn_ictu_thema_get_thema_terms' ) ) {
 	$context['overview']['template'] = 'card--thema';
 	$themas                          = fn_ictu_thema_get_thema_terms();
 
-	foreach ( $themas['items'] as $thema ) {
+	foreach ( $themas as $thema ) {
 
 		$page          = get_post( $thema->thema_taxonomy_page );
 		$page_template = get_post_meta( $page->ID, '_wp_page_template', true );
