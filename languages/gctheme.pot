@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ICTU / Gebruiker Centraal / Thema taxonomie\n"
-"POT-Creation-Date: 2023-11-27 15:54+0100\n"
+"POT-Creation-Date: 2023-12-18 13:01+0100\n"
 "PO-Revision-Date: 2022-11-17 18:42+0100\n"
 "Last-Translator: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language-Team: Paul van Buuren <poedit@wbvb.nl>\n"
@@ -152,6 +152,12 @@ msgstr ""
 msgctxt "Custom taxonomy arguments definition"
 msgid "Thema's op het gebied van een gebruikersvriendelijke overheid"
 msgstr ""
+
+#: includes/register-thema-taxonomy.php:162
+msgid "Hoort bij het thema"
+msgid_plural "Hoort bij de thema's"
+msgstr[0] ""
+msgstr[1] ""
 
 #: template-thema-detail.php:215
 msgctxt "Linktekst voor LLK pagina met podcasts"
