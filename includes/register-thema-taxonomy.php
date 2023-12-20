@@ -159,8 +159,6 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 	if ( is_array( $found_thema_terms ) && ! empty( $found_thema_terms ) ) {
 		// Add our custom Fields to each found WP_Term instance
 		// And add to $thema_terms[]
-		$thema_terms['title'] =  _n( 'Hoort bij het thema', 'Hoort bij de thema\'s', count( $found_thema_terms ), 'gctheme' ) ;
-		$thema_terms['items']   = array();
 
 		foreach ( $found_thema_terms as $thema_term ) {
 			foreach ( get_fields( $thema_term ) as $key => $val ) {
@@ -173,7 +171,7 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 			}
 			// DEBUG: prefix name with term_id and thema_sort_order
 			// $thema_term->name = $thema_term->term_id . '-' . $thema_term->thema_sort_order . '-' . $thema_term->name;
-			$thema_terms['items'][] = $thema_term;
+			$thema_terms[] = $thema_term;
 		}
 	}
 
@@ -209,13 +207,15 @@ function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 )
 		'fields'     => 'names' // Only return names (to use in `fn_ictu_thema_get_thema_terms()`)
 	] );
 
+	$return_terms['title'] =  _n( 'Hoort bij het thema', 'Hoort bij de thema\'s', count( $post_thema_terms ), 'gctheme' ) ;
+	$return_terms['items']   = array();
+
 	foreach ( $post_thema_terms as $_term ) {
 		$full_post_thema_term = fn_ictu_thema_get_thema_terms( $_term );
 		if ( ! empty( $full_post_thema_term ) ) {
-			$return_terms[] = $full_post_thema_term[0];
+			$return_terms['items'][] = $full_post_thema_term[0];
 		}
 	}
-
 	return $return_terms;
 }
 
