@@ -346,10 +346,14 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
 		$metabox_items = $metabox_fields['metabox_posts_selection_manual'];
 
 	} else {
-		// Check: do we want posts from a certain category?
-		if ( array_key_exists( 'metabox_posts_category', $metabox_fields ) ) {
-			$metabox_posts_category = $metabox_fields['metabox_posts_category'];
-		}
+
+		// Disabled: we disabled the `metabox_posts_category` field
+		// for Thema templates. We never want to query on category, only on Thema
+		// ---
+		// // Check: do we want posts from a certain category?
+		// if ( array_key_exists( 'metabox_posts_category', $metabox_fields ) ) {
+		// 	$metabox_posts_category = $metabox_fields['metabox_posts_category'];
+		// }
 
 		$args = array(
 			'posts_per_page' => $maxnr,
@@ -365,16 +369,19 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
 			)
 		);
 
-		// If we have a post category, add it to the Tax query
-		// we do not only query on Thema Tax, but on Post Category as well
-		if ( ! empty( $metabox_posts_category ) ) {
-			$args['tax_query']['relation'] = 'AND';
-			$args['tax_query'][] = array(
-				'taxonomy' => 'category',
-				'field'    => 'term_id',
-				'terms'    => $metabox_posts_category,
-			);
-		}
+		// Disabled: we disabled the `metabox_posts_category` field
+		// for Thema templates. We never want to query on category, only on Thema
+		// ---
+		// // If we have a post category, add it to the Tax query
+		// // we do not only query on Thema Tax, but on Post Category as well
+		// if ( ! empty( $metabox_posts_category ) ) {
+		// 	$args['tax_query']['relation'] = 'AND';
+		// 	$args['tax_query'][] = array(
+		// 		'taxonomy' => 'category',
+		// 		'field'    => 'term_id',
+		// 		'terms'    => $metabox_posts_category,
+		// 	);
+		// }
 
 		$query_items = new WP_Query( $args );
 		if ( $query_items->have_posts() ) {
