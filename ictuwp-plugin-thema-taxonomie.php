@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             1.2.17
- * Version description: Fix regession re: `fn_ictu_thema_get_thema_terms()`
+ * Version:             1.2.18
+ * Version description: Optimize `metabox_posts_archive_selection` for Archive Link
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -96,6 +96,23 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 			// check if the term has detail page attached
 			add_action( 'template_redirect', array( $this, 'fn_ictu_thema_check_redirect' ) );
+
+			// Hide the `metabox_posts_category` field for 'community' related posts
+			// (because we already filter on Community tax term)
+			add_filter( 'acf/prepare_field/name=metabox_posts_category', function( $field ) {
+				global $post;
+				if ( ! empty( $post ) ) {
+					// Check if we're currently editing a post
+					// with a Thema template.
+					// If so: *disable* the category selection (return false)
+					// because we use the Thema Tax...
+					$page_template = get_post_meta( $post->ID, '_wp_page_template', true );
+					if ( $page_template === GC_THEMA_TAX_DETAIL_TEMPLATE ) {
+						return false;
+					}
+				}
+				return $field;
+			} );
 
 		}
 
