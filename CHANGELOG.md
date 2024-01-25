@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version history
+* 1.2.19 - Fixed a sorting order bug.
 * 1.2.18 - Optimize `metabox_posts_archive_selection` for Archive Link
 * 1.2.17 - Fix regession re: `fn_ictu_thema_get_thema_terms()`
 * 1.2.16 - Make title translatable.

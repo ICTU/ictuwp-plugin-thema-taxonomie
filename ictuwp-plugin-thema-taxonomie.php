@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             1.2.18
- * Version description: Optimize `metabox_posts_archive_selection` for Archive Link
+ * Version:             1.2.19
+ * Version description: Fixed a sorting order bug.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
