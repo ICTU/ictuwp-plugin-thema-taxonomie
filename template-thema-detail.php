@@ -88,7 +88,7 @@ if ( class_exists( 'EM_Events' ) ) {
 				'posts_per_page' => $maxnr,
 				'post_type'      => EM_POST_TYPE_EVENT,
 				'meta_key'       => '_event_start_date',
-				'orderby'        => 'meta_value_num', // not 'meta_value_num' since this field is formatted yyyy-mm-dd
+				'orderby'        => 'meta_value', // not 'meta_value_num' since this field is formatted yyyy-mm-dd
 				'post_status'    => 'publish',
 				'order'          => 'ASC', // order by start date ascending
 				'fields'         => 'ids', // only return IDs
@@ -132,8 +132,6 @@ if ( class_exists( 'EM_Events' ) ) {
 				$context['metabox_events']['cta']['title'] = $url['title'];
 				$context['metabox_events']['cta']['url']   = $url['url'];
 			}
-
-			dump( $metabox_items );
 
 			foreach ( $metabox_items as $postitem ) {
 
