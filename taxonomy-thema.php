@@ -4,8 +4,7 @@
  * The template for displaying Thema (taxonomy) Landings pages.
  *
  * @package  WordPress
- * @subpackage  Timber
- * @since   Timber 0.2
+ * @subpackage  Timber v2
  */
 
 

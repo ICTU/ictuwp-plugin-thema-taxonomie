@@ -7,12 +7,11 @@
  * ACF `thema_taxonomy_page` Link field
  *
  * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
+ * @subpackage  Timber v2
  */
 
 $context     = Timber::context();
-$timber_post = new Timber\Post();
+$timber_post = Timber::get_post();
 
 /**
  * Fill Timber $context with available page/post Blocks/Metaboxes

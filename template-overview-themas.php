@@ -3,12 +3,11 @@
  * Template Name: Template Thema's
  *
  * @package  WordPress
- * @subpackage  Timber
- * @since    Timber 0.1
+ * @subpackage  Timber v2
  */
 
 $context               = Timber::context();
-$timber_post           = new Timber\Post();
+$timber_post           = Timber::get_post();
 $context['post']       = $timber_post;
 $context['modifier']   = 'thema-overview';
 $context['is_unboxed'] = true;
