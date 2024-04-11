@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version history
+* 2.0.0 - Refactor for Timber v2
 * 1.2.20 - Force new version
 * 1.2.19 - Fixed a sorting order bug.
 * 1.2.18 - Optimize `metabox_posts_archive_selection` for Archive Link
