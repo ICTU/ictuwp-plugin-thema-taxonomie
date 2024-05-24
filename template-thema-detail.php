@@ -417,8 +417,8 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
 					$metabox_posts_category_name = $term_info->name;
 					$metabox_posts_category_text = $metabox_fields['metabox_posts_archive_selection_automatic_link_text'] ?: _x( 'Bekijk alle berichten', 'Linktekst voor Community berichten', 'gctheme' );
 
-					// Replace placeholder with term name in automatic link text
-					$metabox_posts_category_text = sprintf( $metabox_posts_category_text, $metabox_posts_category_name );
+					// Replace placeholder with term name (lowercase 1st character) in automatic link text
+					$metabox_posts_category_text = sprintf( $metabox_posts_category_text, lcfirst( $metabox_posts_category_name ) );
 
 					// automagically add link to LLK page for posts
 					$template = 'template-llk-posts.php';
