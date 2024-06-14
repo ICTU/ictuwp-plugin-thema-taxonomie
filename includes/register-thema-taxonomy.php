@@ -121,8 +121,8 @@ if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
  * @see https://www.advancedcustomfields.com/resources/adding-fields-taxonomy-term/
  * @see https://developer.wordpress.org/reference/classes/wp_term_query/__construct/
  *
- * @param String $thema_name Specific term name/slug to query
- * @param Array $thema_args Specific term query Arguments to use
+ * @param String  $thema_name Specific term name/slug to query
+ * @param Array   $thema_args Specific term query Arguments to use
  */
 
 
@@ -169,6 +169,7 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 				// Add our custom ACF fields to this WP_Term..
 				$thema_term->$key = $val;
 			}
+
 			// DEBUG: prefix name with term_id and thema_sort_order
 			// $thema_term->name = $thema_term->term_id . '-' . $thema_term->thema_sort_order . '-' . $thema_term->name;
 			$thema_terms[] = $thema_term;
@@ -181,35 +182,66 @@ function fn_ictu_thema_get_thema_terms( $thema_name = null, $term_args = null ) 
 /**
  * fn_ictu_thema_get_post_thema_terms()
  *
- * This function fills an array of all
- * terms, with their extra fields _for a specific Post_...
+ * This function fills an array of 1 or all
+ * Thema taxonomy terms coupled to a Post.
+ * These terms will include all their custom
+ * extra fields (ACF).
  *
- * - Only top-lever Terms
- * - 1 by default
+ * - Only top-level Terms
+ * - maximum 1 (default)
  *
  * used in [themes]/ictuwp-theme-gc2020/includes/gc-fill-context-with-acf-fields.php
  *
  * @param String|Number $post_id Post to retrieve linked terms for
+ * @param String|Number $term_count amount of terms to retrieve (0 = all)
  *
  * @return Array        Array of WPTerm Objects with extra ACF fields
  */
-function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_number = 1 ) {
+function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_count = null ) {
 	$return_terms = [];
 	if ( ! $post_id ) {
 		return $return_terms;
 	}
 
-	$post_thema_terms = wp_get_post_terms( $post_id, GC_THEMA_TAX, [
+	// Global Term args
+	$thema_args = array(
 		'taxonomy'   => GC_THEMA_TAX,
-		'number'     => $term_number, // Return max $term_number Terms
 		'hide_empty' => true,
-		'parent'     => 0,
-		'fields'     => 'names' // Only return names (to use in `fn_ictu_thema_get_thema_terms()`)
-	] );
+	);
+
+	// Total nr of available terms
+	$total_term_count = intval( wp_count_terms( $thema_args ) );
+
+	// If $term_count is nullish (null, false, 0), we want ALL terms
+	if ( ! $term_count ) {
+		$term_count = $total_term_count;
+	}
+
+	// Get the Terms coupled to this Post
+	// Only return `name` (used in `fn_ictu_thema_get_thema_terms()`)
+	$post_thema_terms = wp_get_post_terms( $post_id, GC_THEMA_TAX, array_merge(
+		$thema_args,
+		array(
+			'number' => $term_count,
+			'parent' => 0,
+			'fields'  => 'names'
+		)
+	) );
 
 	$return_terms['title'] =  _n( 'Hoort bij het thema', 'Hoort bij de thema\'s', count( $post_thema_terms ), 'gctheme' ) ;
-	$return_terms['items']   = array();
+	$return_terms['items'] = array();
 
+	// When a post contains ALL available terms, we show NONE.
+	$post_term_count = count( $post_thema_terms );
+
+	if ( $total_term_count > 1 ) {
+		// Reset when all terms are coupled
+		if ( $post_term_count >= $total_term_count ) {
+			$post_thema_terms = array();
+		}
+	}
+
+	// We have a list of term names, now we need the full Term objects
 	foreach ( $post_thema_terms as $_term ) {
 		$full_post_thema_term = fn_ictu_thema_get_thema_terms( $_term );
 		if ( ! empty( $full_post_thema_term ) ) {
