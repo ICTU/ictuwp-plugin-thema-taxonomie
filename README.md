@@ -3,9 +3,10 @@ Plugin voor het aanmaken van de 'thema'-taxonomie
 
 
 ## Current version:
-* 2.2.0 - Return no Thema tax terms if ALL available are coupled to post
+* 2.2.1 - Fix: search result should not go to first `$post` match.
 
 ## Changelog:
+* 2.2.0 - Return no Thema tax terms if ALL available are coupled to post
 * 2.0.1 - Lowercase the 1st character of the Thema tax name in archive link text
 * 2.0.0 - Refactor for Timber v2
 * 1.2.20 - Force new version

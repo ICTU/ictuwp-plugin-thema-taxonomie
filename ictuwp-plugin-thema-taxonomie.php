@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             2.2.0
- * Version description: Return no Thema tax terms if ALL available are coupled to post
+ * Version:             2.2.1
+ * Version description: Fix: search result should not go to first `$post` match.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -174,6 +174,11 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 		 *
 		 */
 		public function fn_ictu_thema_append_template_locations( $template ) {
+
+			if ( is_search() ) {
+				// Do not interfere with search results
+				return $template;
+			}
 
 			// Get global post
 			global $post;
