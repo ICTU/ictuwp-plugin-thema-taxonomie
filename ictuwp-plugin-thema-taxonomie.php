@@ -99,7 +99,7 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 
 			// Hide the `metabox_posts_category` field for 'community' related posts
 			// (because we already filter on Community tax term)
-			add_filter( 'acf/prepare_field/name=metabox_posts_category', function( $field ) {
+			add_filter( 'acf/prepare_field/name=metabox_posts_category', function ( $field ) {
 				global $post;
 				if ( ! empty( $post ) ) {
 					// Check if we're currently editing a post
@@ -111,44 +111,50 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 						return false;
 					}
 				}
+
 				return $field;
 			} );
 
 		}
 
 		public function fn_ictu_thema_check_redirect() {
-
 			if ( ! function_exists( 'get_field' ) ) {
 				// we can't check if ACF is not active
 				return;
 			}
 
-			if ( is_tax( GC_THEMA_TAX ) ) {
+			if ( is_search() ) {
+				// no redirects when we are in the middle of a search routine
+				return;
 
-				// check if the current term has a value for 'thema_taxonomy_page'
-				$pageid = get_field( 'thema_taxonomy_page', GC_THEMA_TAX . '_' . get_queried_object()->term_id );
-				$page   = get_post( $pageid );
-				if ( $page ) {
-					// cool, a page is selected for this term
-					// But is the page published?
-					if ( 'publish' === $page->post_status ) {
-						// good, it is published
-						// let's redirect to that page
-						wp_safe_redirect( get_permalink( $page->ID ) );
-						exit;
+			} else {
+				if ( is_tax( GC_THEMA_TAX ) ) {
 
-					} else {
-						// bad, we only want published pages
-						$aargh = 'No published page attached to this thema';
-						if ( current_user_can( 'editor' ) ) {
-							$editlink = get_edit_term_link( get_queried_object()->term_id, get_queried_object()->taxonomy );
-							$aargh    .= '<a href="' . $editlink . '">Please choose a published page for this term.</a>';
+					// check if the current term has a value for 'thema_taxonomy_page'
+					$pageid = get_field( 'thema_taxonomy_page', GC_THEMA_TAX . '_' . get_queried_object()->term_id );
+					$page   = get_post( $pageid );
+					if ( $page ) {
+						// cool, a page is selected for this term
+						// But is the page published?
+						if ( 'publish' === $page->post_status ) {
+							// good, it is published
+							// let's redirect to that page
+							wp_safe_redirect( get_permalink( $page->ID ) );
+							exit;
+
+						} else {
+							// bad, we only want published pages
+							$aargh = 'No published page attached to this thema';
+							if ( current_user_can( 'editor' ) ) {
+								$editlink = get_edit_term_link( get_queried_object()->term_id, get_queried_object()->taxonomy );
+								$aargh    .= '<a href="' . $editlink . '">Please choose a published page for this term.</a>';
+							}
+							die( $aargh );
 						}
-						die( $aargh );
+					} else {
+						// no page is selected for this term
+						// for now, do nothing
 					}
-				} else {
-					// no page is selected for this term
-					// for now, do nothing
 				}
 			}
 		}
