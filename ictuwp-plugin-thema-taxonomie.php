@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             2.2.1
- * Version description: Fix: search result should not go to first `$post` match.
+ * Version:             2.3.0
+ * Version description: Add related Richtlijnen to detail page.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
@@ -113,6 +113,9 @@ if ( ! class_exists( 'ICTU_GC_thema_taxonomy' ) ) :
 				}
 				return $field;
 			} );
+
+			// Setup Template ACF fields for Thema Richtlijnen
+			require_once plugin_dir_path( __FILE__ ) . 'includes/thema-taxonomy-richtlijnen-acf-fields.php';
 
 		}
 
