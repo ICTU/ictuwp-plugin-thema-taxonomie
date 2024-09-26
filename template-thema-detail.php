@@ -473,68 +473,37 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
  * 45 - Richtlijnen box
  * ----------------------------- */
 $metabox_fields = get_field( 'richtlijnen' );
-
 if ( $metabox_fields && 'ja' === $metabox_fields['metabox_thema_richtlijnen_show_or_not'] ) {
-
-	$maxnr            = -1; // todo TBD: should this be a user editable field?
-	$metabox_item_ids = array();
 
 	// Do we have a Thema Term ID?
 	// Only continue if we do.
-	if ( isset( $current_thema_taxid ) ) {
-		$richtlijn_detail_template = defined( 'GC_RICHTLIJN_TAX_DETAIL_TEMPLATE' ) ? GC_RICHTLIJN_TAX_DETAIL_TEMPLATE : 'template-detail-richtlijnen.php';
-		// Get all Pages with the richtlijnen detail template
-		// and that have the current thema term.
-		$args = array(
-			'posts_per_page' => $maxnr,
-			'post_type'      => 'page',
-			'post_status'    => 'publish',
-			'fields'          => 'ids', // only return IDs
-			'meta_query'     => array(
-				'relation' => 'AND',
-				array(
-					'key'   => '_wp_page_template',
-					'value' => $richtlijn_detail_template,
-				),
-			),
-			'tax_query'      => array(
-				array(
-					'taxonomy' => GC_THEMA_TAX,
-					'field'     => 'term_id',
-					'terms'    => $current_thema_taxid,
-				)
-			),
-		);
-		$richtlijn_pages_query = new WP_Query( $args );
-		if ( $richtlijn_pages_query->have_posts() ) {
-			// we only use post ids for the $metabox_item_ids array
-			$metabox_item_ids = $richtlijn_pages_query->posts;
-		}
-		// ensure to reset the main query to original main query
-		wp_reset_query();
-		if ( $metabox_item_ids ) {
-			$context['metabox_thema_richtlijnen']                = [];
-			$context['metabox_thema_richtlijnen']['items']       = [];
-			$context['metabox_thema_richtlijnen']['cta']         = $metabox_fields['metabox_thema_richtlijnen_url_overview'];
-			$context['metabox_thema_richtlijnen']['title']       = $metabox_fields['metabox_thema_richtlijnen_titel'] ?? '';
-			$context['metabox_thema_richtlijnen']['description'] = $metabox_fields['metabox_thema_richtlijnen_omschrijving'] ?? '';
-			$richtlijnen_section_modifier = $metabox_fields['metabox_thema_richtlijnen_section_style'];
-			if ( $richtlijnen_section_modifier !== 'default' ) {
-				$context['metabox_thema_richtlijnen']['modifier'] = $richtlijnen_section_modifier;
+	if ( isset( $current_thema_taxid ) && function_exists( 'prepare_richtlijn_card_content' ) ) {
+
+		$coupled_richtlijnen = $metabox_fields['metabox_thema_richtlijnen_select'];
+
+		if ( $coupled_richtlijnen ) {
+
+			$metabox_items = array();
+
+			foreach ( $coupled_richtlijnen as $richtlijn ) {
+				$metabox_items[] = prepare_richtlijn_card_content( $richtlijn );
 			}
-			foreach ( $metabox_item_ids as $post_id ) {
-				$item  = prepare_card_content( get_post( $post_id ) );
-				// $image = get_the_post_thumbnail_url( $post_id, IMAGESIZE_16x9 );
-				// if ( $image ) {
-				// 	// decorative image, no value for alt attr.
-				// 	$item['img'] = '<img src="' . $image . '" alt="" />';
-				// 	// Provide Image as URL instead of HTML?
-				// 	// $item['img']     = $image;
-				// 	// $item['img_alt'] = '';
-				// }
-				$context['metabox_thema_richtlijnen']['items'][] = $item;
+
+			if ( ! empty( $metabox_items ) ) {
+				$context['metabox_thema_richtlijnen']                = array();
+				$context['metabox_thema_richtlijnen']['items']       = array();
+				$context['metabox_thema_richtlijnen']['cta']         = $metabox_fields['metabox_thema_richtlijnen_url_overview'];
+				$context['metabox_thema_richtlijnen']['title']       = $metabox_fields['metabox_thema_richtlijnen_titel'] ?? '';
+				$context['metabox_thema_richtlijnen']['description'] = $metabox_fields['metabox_thema_richtlijnen_omschrijving'] ?? '';
+
+				$richtlijnen_section_modifier = $metabox_fields['metabox_thema_richtlijnen_section_style'];
+				if ( $richtlijnen_section_modifier !== 'default' ) {
+					$context['metabox_thema_richtlijnen']['modifier'] = $richtlijnen_section_modifier;
+				}
+
+				$context['metabox_thema_richtlijnen']['items']         = $metabox_items;
+				$context['metabox_thema_richtlijnen']['columncounter'] = count( $context['metabox_thema_richtlijnen']['items'] );
 			}
-			$context['metabox_thema_richtlijnen']['columncounter'] = count( $context['metabox_thema_richtlijnen']['items'] );
 		}
 	}
 }
