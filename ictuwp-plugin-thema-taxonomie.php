@@ -8,8 +8,8 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             2.3.0
- * Version description: Add related Richtlijnen to detail page.
+ * Version:             2.4.0
+ * Version description: Related Thema Richtlijnen are selectable, no longer automatic. Requires plugin ictuwp-plugin-richtlijn-taxonomie:1.3.0.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
