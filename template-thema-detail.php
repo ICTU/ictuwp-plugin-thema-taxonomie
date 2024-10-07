@@ -484,6 +484,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_thema_richtlijnen_show
 		if ( $coupled_richtlijnen ) {
 
 			$metabox_items = array();
+			$default_title = _x( 'Hulp nodig?', 'default title for richtlijnen', 'gctheme' );
 
 			foreach ( $coupled_richtlijnen as $richtlijn ) {
 				$metabox_items[] = prepare_richtlijn_card_content( $richtlijn );
@@ -493,7 +494,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_thema_richtlijnen_show
 				$context['metabox_thema_richtlijnen']                = array();
 				$context['metabox_thema_richtlijnen']['items']       = array();
 				$context['metabox_thema_richtlijnen']['cta']         = $metabox_fields['metabox_thema_richtlijnen_url_overview'];
-				$context['metabox_thema_richtlijnen']['title']       = $metabox_fields['metabox_thema_richtlijnen_titel'] ?? '';
+				$context['metabox_thema_richtlijnen']['title']       = $metabox_fields['metabox_thema_richtlijnen_titel'] ? $metabox_fields['metabox_thema_richtlijnen_titel'] : $default_title;
 				$context['metabox_thema_richtlijnen']['description'] = $metabox_fields['metabox_thema_richtlijnen_omschrijving'] ?? '';
 
 				$richtlijnen_section_modifier = $metabox_fields['metabox_thema_richtlijnen_section_style'];
