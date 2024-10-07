@@ -1,6 +1,7 @@
 # Changelog
 
 ## Version history
+* 2.4.1 - Add default title text for related richtlijnen on detail page.
 * 2.4.0 - Related Thema Richtlijnen are selectable, no longer automatic. Requires plugin ictuwp-plugin-richtlijn-taxonomie:1.3.0.
 * 2.3.0 -  Add related Richtlijnen to detail page.
 * 2.2.1 - Fix: search result should not go to first `$post` match.

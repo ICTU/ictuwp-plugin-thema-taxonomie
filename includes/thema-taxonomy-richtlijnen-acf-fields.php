@@ -90,8 +90,8 @@ acf_add_local_field_group( array(
 					'name' => 'metabox_thema_richtlijnen_titel',
 					'aria-label' => '',
 					'type' => 'text',
-					'instructions' => '',
-					'required' => 0,
+					'instructions' => 'Laat dit veld niet leeg, alsjeblieft. Standaard-tekst is "Hulp nodig?"',
+					'required' => 1,
 					'conditional_logic' => array(
 						array(
 							array(
@@ -106,7 +106,7 @@ acf_add_local_field_group( array(
 						'class' => '',
 						'id' => '',
 					),
-					'default_value' => 'Hulp nodig?',
+					'default_value' => _x( 'Hulp nodig?', 'default title for richtlijnen', 'gctheme' ),
 					'maxlength' => '',
 					'allow_in_bindings' => 1,
 					'placeholder' => '',
