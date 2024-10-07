@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ICTU / Gebruiker Centraal / Thema taxonomie\n"
-"POT-Creation-Date: 2023-12-18 13:01+0100\n"
-"PO-Revision-Date: 2023-12-18 13:01+0100\n"
+"POT-Creation-Date: 2024-10-07 17:55+0200\n"
+"PO-Revision-Date: 2024-10-07 17:55+0200\n"
 "Last-Translator: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language-Team: Paul van Buuren <poedit@wbvb.nl>\n"
 "Language: nl_NL\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.5\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: ictuwp-plugin-thema-taxonomie.php\n"
@@ -21,12 +21,12 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: ictuwp-plugin-thema-taxonomie.php:326
+#: ictuwp-plugin-thema-taxonomie.php:351
 msgctxt "label page template"
 msgid "[Thema] alle thema's"
 msgstr ""
 
-#: ictuwp-plugin-thema-taxonomie.php:327
+#: ictuwp-plugin-thema-taxonomie.php:352
 msgctxt "label page template"
 msgid "[Thema] thema-detail"
 msgstr ""
@@ -153,25 +153,31 @@ msgctxt "Custom taxonomy arguments definition"
 msgid "Thema's op het gebied van een gebruikersvriendelijke overheid"
 msgstr ""
 
-#: includes/register-thema-taxonomy.php:162
+#: includes/register-thema-taxonomy.php:231
 msgid "Hoort bij het thema"
 msgid_plural "Hoort bij de thema's"
 msgstr[0] ""
 msgstr[1] ""
 
-#: template-thema-detail.php:215
+#: includes/thema-taxonomy-richtlijnen-acf-fields.php:109
+#: template-thema-detail.php:487
+msgctxt "default title for richtlijnen"
+msgid "Hulp nodig?"
+msgstr ""
+
+#: template-thema-detail.php:216
 msgctxt "Linktekst voor LLK pagina met podcasts"
 msgid "Bekijk alle video's"
 msgstr ""
 
-#: template-thema-detail.php:306
+#: template-thema-detail.php:307
 msgctxt "Linktekst voor LLK pagina met podcasts"
 msgid "Beluister alle podcasts"
 msgstr ""
 
-#: template-thema-detail.php:397
-msgctxt "Linktekst voor LLK pagina met berichten"
-msgid "Lees alle artikelen"
+#: template-thema-detail.php:418 template-thema-detail.php:448
+msgctxt "Linktekst voor Community berichten"
+msgid "Bekijk alle berichten"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
