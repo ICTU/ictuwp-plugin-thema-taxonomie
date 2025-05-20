@@ -213,7 +213,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_webinars_show_or_not']
 
 			if ( $pages && $pages[0] ) {
 				// a relevant LLK page was found
-				$context['metabox_webinars']['cta']['title'] = _x( 'Bekijk alle video\'s', 'Linktekst voor LLK pagina met podcasts', 'gctheme' );
+				$context['metabox_webinars']['cta']['title'] = _x( 'Bekijk alle video\'s', 'Linktekst voor LLK pagina met podcasts', 'ictuwp-plugin-thema-taxonomie' );
 				$context['metabox_webinars']['cta']['url']   = get_permalink( $pages[0] );
 			} else {
 				// no manual link added, no page found.
@@ -304,7 +304,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_podcasts_show_or_not']
 
 			if ( $pages && $pages[0] ) {
 				// a relevant LLK page was found
-				$context['metabox_podcasts']['cta']['title'] = _x( 'Beluister alle podcasts', 'Linktekst voor LLK pagina met podcasts', 'gctheme' );
+				$context['metabox_podcasts']['cta']['title'] = _x( 'Beluister alle podcasts', 'Linktekst voor LLK pagina met podcasts', 'ictuwp-plugin-thema-taxonomie' );
 				$context['metabox_podcasts']['cta']['url']   = get_permalink( $pages[0] );
 			} else {
 				// no manual link added, no page found.
@@ -415,7 +415,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
 				if ( ( $term_info && ! is_wp_error( $term_info ) ) ) {
 
 					$metabox_posts_category_name = $term_info->name;
-					$metabox_posts_category_text = $metabox_fields['metabox_posts_archive_selection_automatic_link_text'] ?: _x( 'Bekijk alle berichten', 'Linktekst voor Community berichten', 'gctheme' );
+					$metabox_posts_category_text = $metabox_fields['metabox_posts_archive_selection_automatic_link_text'] ?: _x( 'Bekijk alle berichten', 'Linktekst voor Community berichten', 'ictuwp-plugin-thema-taxonomie' );
 
 					// Replace placeholder with term name (lowercase 1st character) in automatic link text
 					$metabox_posts_category_text = sprintf( $metabox_posts_category_text, lcfirst( $metabox_posts_category_name ) );
@@ -445,7 +445,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_posts_show_or_not'] ) 
 			if ( 'custom' === $archive_link_method ) {
 				$custom_archive_link = $metabox_fields['metabox_posts_archive_selection_custom_link'];
 				if ( ! empty( $custom_archive_link ) ) {
-					$context['metabox_posts']['cta']['title'] = $custom_archive_link['title'] ?: _x( 'Bekijk alle berichten', 'Linktekst voor Community berichten', 'gctheme' );
+					$context['metabox_posts']['cta']['title'] = $custom_archive_link['title'] ?: _x( 'Bekijk alle berichten', 'Linktekst voor Community berichten', 'ictuwp-plugin-thema-taxonomie' );
 					$context['metabox_posts']['cta']['url']   = $custom_archive_link['url'];
 				}
 			}
@@ -484,7 +484,7 @@ if ( $metabox_fields && 'ja' === $metabox_fields['metabox_thema_richtlijnen_show
 		if ( $coupled_richtlijnen ) {
 
 			$metabox_items = array();
-			$default_title = _x( 'Hulp nodig?', 'default title for richtlijnen', 'gctheme' );
+			$default_title = _x( 'Hulp nodig?', 'default title for richtlijnen', 'ictuwp-plugin-thema-taxonomie' );
 
 			foreach ( $coupled_richtlijnen as $richtlijn ) {
 				$metabox_items[] = prepare_richtlijn_card_content( $richtlijn );

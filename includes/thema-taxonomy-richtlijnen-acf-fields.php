@@ -106,7 +106,7 @@ acf_add_local_field_group( array(
 						'class' => '',
 						'id' => '',
 					),
-					'default_value' => _x( 'Hulp nodig?', 'default title for richtlijnen', 'gctheme' ),
+					'default_value' => _x( 'Hulp nodig?', 'default title for richtlijnen', 'ictuwp-plugin-thema-taxonomie' ),
 					'maxlength' => '',
 					'allow_in_bindings' => 1,
 					'placeholder' => '',
