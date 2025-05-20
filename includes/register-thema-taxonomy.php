@@ -29,30 +29,30 @@ if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
 
 	// [1] Thema Taxonomy Labels
 	$thema_tax_labels = [
-		'name'                       => _x( 'Thema', 'Custom taxonomy labels definition', 'gctheme' ),
-		'singular_name'              => _x( 'Thema', 'Custom taxonomy labels definition', 'gctheme' ),
-		'search_items'               => _x( 'Zoek thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'popular_items'              => _x( 'Populaire thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'all_items'                  => _x( 'Alle thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'edit_item'                  => _x( 'Bewerk thema', 'Custom taxonomy labels definition', 'gctheme' ),
-		'view_item'                  => _x( 'Bekijk thema', 'Custom taxonomy labels definition', 'gctheme' ),
-		'update_item'                => _x( 'Thema bijwerken', 'Custom taxonomy labels definition', 'gctheme' ),
-		'add_new_item'               => _x( 'Voeg nieuw thema toe', 'Custom taxonomy labels definition', 'gctheme' ),
-		'new_item_name'              => _x( 'Nieuwe thema', 'Custom taxonomy labels definition', 'gctheme' ),
-		'separate_items_with_commas' => _x( 'Kommagescheiden thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'add_or_remove_items'        => _x( 'Thema\'s toevoegen of verwijderen', 'Custom taxonomy labels definition', 'gctheme' ),
-		'choose_from_most_used'      => _x( 'Kies uit de meest-gekozen thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'not_found'                  => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'gctheme' ),
-		'no_terms'                   => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'gctheme' ),
-		'items_list_navigation'      => _x( 'Navigatie door themalijst', 'Custom taxonomy labels definition', 'gctheme' ),
-		'items_list'                 => _x( 'Themalijst', 'Custom taxonomy labels definition', 'gctheme' ),
-		'item_link'                  => _x( 'Thema Link', 'Custom taxonomy labels definition', 'gctheme' ),
-		'item_link_description'      => _x( 'Een link naar een Thema', 'Custom taxonomy labels definition', 'gctheme' ),
-		'menu_name'                  => _x( 'Thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'back_to_items'              => _x( 'Terug naar Thema\'s', 'Custom taxonomy labels definition', 'gctheme' ),
-		'not_found_in_trash'         => _x( 'Geen thema\'s gevonden in de prullenbak', 'Custom taxonomy labels definition', 'gctheme' ),
-		'featured_image'             => _x( 'Uitgelichte afbeelding', 'Custom taxonomy labels definition', 'gctheme' ),
-		'archives'                   => _x( 'Thema overzicht', 'Custom taxonomy labels definition', 'gctheme' ),
+		'name'                       => _x( 'Thema', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'singular_name'              => _x( 'Thema', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'search_items'               => _x( 'Zoek thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'popular_items'              => _x( 'Populaire thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'all_items'                  => _x( 'Alle thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'edit_item'                  => _x( 'Bewerk thema', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'view_item'                  => _x( 'Bekijk thema', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'update_item'                => _x( 'Thema bijwerken', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'add_new_item'               => _x( 'Voeg nieuw thema toe', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'new_item_name'              => _x( 'Nieuwe thema', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'separate_items_with_commas' => _x( 'Kommagescheiden thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'add_or_remove_items'        => _x( 'Thema\'s toevoegen of verwijderen', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'choose_from_most_used'      => _x( 'Kies uit de meest-gekozen thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'not_found'                  => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'no_terms'                   => _x( 'Geen thema\'s gevonden', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'items_list_navigation'      => _x( 'Navigatie door themalijst', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'items_list'                 => _x( 'Themalijst', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'item_link'                  => _x( 'Thema Link', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'item_link_description'      => _x( 'Een link naar een Thema', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'menu_name'                  => _x( 'Thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'back_to_items'              => _x( 'Terug naar Thema\'s', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'not_found_in_trash'         => _x( 'Geen thema\'s gevonden in de prullenbak', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'featured_image'             => _x( 'Uitgelichte afbeelding', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
+		'archives'                   => _x( 'Thema overzicht', 'Custom taxonomy labels definition', 'ictuwp-plugin-thema-taxonomie' ),
 	];
 
 	// [2] Thema Taxonomy Arguments
@@ -63,8 +63,8 @@ if ( ! taxonomy_exists( GC_THEMA_TAX ) ) {
 
 	$thema_tax_args = [
 		"labels"             => $thema_tax_labels,
-		"label"              => _x( 'Thema\'s', 'Custom taxonomy arguments definition', 'gctheme' ),
-		"description"        => _x( 'Thema\'s op het gebied van een gebruikersvriendelijke overheid', 'Custom taxonomy arguments definition', 'gctheme' ),
+		"label"              => _x( 'Thema\'s', 'Custom taxonomy arguments definition', 'ictuwp-plugin-thema-taxonomie' ),
+		"description"        => _x( 'Thema\'s op het gebied van een gebruikersvriendelijke overheid', 'Custom taxonomy arguments definition', 'ictuwp-plugin-thema-taxonomie' ),
 		"hierarchical"       => true,
 		"public"             => true,
 		"show_ui"            => true,
@@ -228,7 +228,7 @@ function fn_ictu_thema_get_post_thema_terms( $post_id = null, $term_count = null
 		)
 	) );
 
-	$return_terms['title'] =  _n( 'Hoort bij het thema', 'Hoort bij de thema\'s', count( $post_thema_terms ), 'gctheme' ) ;
+	$return_terms['title'] =  _n( 'Hoort bij het thema', 'Hoort bij de thema\'s', count( $post_thema_terms ), 'ictuwp-plugin-thema-taxonomie' ) ;
 	$return_terms['items'] = array();
 
 	// When a post contains ALL available terms, we show NONE.

@@ -8,13 +8,13 @@
  * Plugin Name:         ICTU / Gebruiker Centraal / Thema taxonomie
  * Plugin URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie
  * Description:         Plugin voor het aanmaken van de 'thema'-taxonomie
- * Version:             2.4.1
- * Version description: Add default title text for related richtlijnen on detail page.
+ * Version:             2.4.2
+ * Version description: Changed textdomain to ictuwp-plugin-thema-taxonomie because of conflicts.
  * Author:              Paul van Buuren
  * Author URI:          https://github.com/ICTU/ictuwp-plugin-thema-taxonomie/
  * License:             GPL-2.0+
  * License URI:         http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:         gctheme
+ * Text Domain:         ictuwp-plugin-thema-taxonomie
  * Domain Path:         /languages
  */
 
@@ -333,7 +333,7 @@ add_action( 'init', 'fn_ictu_thema_load_plugin_textdomain' );
 
 function fn_ictu_thema_load_plugin_textdomain() {
 
-	load_plugin_textdomain( 'gctheme', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	load_plugin_textdomain( 'ictuwp-plugin-thema-taxonomie', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 }
 
@@ -348,8 +348,8 @@ function fn_ictu_thema_load_plugin_textdomain() {
 function fn_ictu_thema_add_templates() {
 
 	$return_array = array(
-		GC_THEMA_TAX_OVERVIEW_TEMPLATE => _x( '[Thema] alle thema\'s', 'label page template', 'gctheme' ),
-		GC_THEMA_TAX_DETAIL_TEMPLATE   => _x( '[Thema] thema-detail', 'label page template', 'gctheme' )
+		GC_THEMA_TAX_OVERVIEW_TEMPLATE => _x( '[Thema] alle thema\'s', 'label page template', 'ictuwp-plugin-thema-taxonomie' ),
+		GC_THEMA_TAX_DETAIL_TEMPLATE   => _x( '[Thema] thema-detail', 'label page template', 'ictuwp-plugin-thema-taxonomie' )
 	);
 
 	return $return_array;
